@@ -8,12 +8,14 @@ import java.awt.event.WindowEvent;
  * The graphical user interface for the app.
  */
 public class GUI {
-    public static int notificationBuffer;
+    private static Integer userChoice;
     /**
-     * Initialise the GUI components in the frame, get the default or saved user choice,
+     * Initialise the GUI components in the frame, set the default or saved user choice,
      * and add listeners for user input.
+     *
+     * @param userPreference    the default or saved user choice
      */
-    public static void displayGUI() {
+    public static void displayGUI(String userPreference) {
         Frame frame = new Frame();
 
         Component[] guiComponents = loadGUIComponents();
@@ -34,36 +36,32 @@ public class GUI {
         frame.setLayout(null);
         frame.setVisible(true);
 
-        setPreference(dropdown);
-        getListeners(frame, dropdown);
+        dropdown.select(userPreference);
+        userChoice = Integer.parseInt(userPreference);
+
+        componentListeners(frame, dropdown);
     }
 
     /**
-     * Get the default or saved user preference from the PreferenceHandler class
-     * and set the current dropdown choice to the returned preference string.
+     * Get the default or saved user choice.
      *
-     * @param dropdown the dropdown list of durations that a user can choose from
+     * @return      the user choice as an integer
      */
-    private static void setPreference(Choice dropdown) {
-        String userPreference = PreferenceHandler.getUserPreference();
-        dropdown.select(userPreference);
-        notificationBuffer = Integer.parseInt(userPreference);
+    public static Integer getUserChoice() {
+        return userChoice;
     }
 
     /**
      * Add an action listener to the dropdown component to get the user choice,
-     * set the notification buffer to the user choice, and pass it to the PreferenceHandler class.
-     * <p>
-     * Add a window listener to the frame to close the program.
+     * and add a window listener to the frame to close the program.
      *
-     * @param frame     the visual window that all GUI components appear on
-     * @param dropdown  the dropdown list of durations that a user can choose from
+     * @param frame         the visual window that all GUI components appear on
+     * @param dropdown      the dropdown list of durations that a user can choose from
      */
-    private static void getListeners(Frame frame, Choice dropdown) {
+    private static void componentListeners(Frame frame, Choice dropdown) {
         dropdown.addItemListener(e -> {
-            String userChoice = (String) e.getItem();
-            notificationBuffer = Integer.parseInt(userChoice);
-            PreferenceHandler.setUserPreference(notificationBuffer);
+            String dropdownChoice = (String) e.getItem();
+            userChoice = Integer.parseInt(dropdownChoice);
         });
 
         frame.addWindowListener(new WindowAdapter() {
@@ -78,7 +76,7 @@ public class GUI {
     /**
      * Set the contents and visual bounds for each GUI component.
      *
-     * @return a component list of the GUI components
+     * @return      a component list of the GUI components
      */
     private static Component[] loadGUIComponents() {
         Label subtitle = new Label("GW2 Event Notifications");
