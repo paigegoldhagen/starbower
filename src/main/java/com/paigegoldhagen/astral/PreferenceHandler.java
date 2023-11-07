@@ -11,19 +11,18 @@ public class PreferenceHandler {
     /**
      * Get the saved user preference from the Windows Registry.
      *
-     * @return the string of the saved user preference
+     * @return      the integer of the saved user preference
      */
     public static String getUserPreference() {
-        int savedPreference = prefs.getInt("NOTIF_PREF", 10);
-        return String.valueOf(savedPreference);
+        return prefs.get("NOTIF_PREF", String.valueOf(10));
     }
 
     /**
      * Set the user preference in the Windows Registry.
      *
-     * @param notificationBuffer the user choice from the dropdown list
+     * @param userChoice    the user choice from the dropdown list
      */
-    public static void setUserPreference(int notificationBuffer) {
-        prefs.putInt("NOTIF_PREF", notificationBuffer);
+    public static void setUserPreference(int userChoice) {
+        prefs.putInt("NOTIF_PREF", userChoice);
     }
 }

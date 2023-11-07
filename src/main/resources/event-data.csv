@@ -1,11 +1,17 @@
-name,time,frequency
-Admiral Taida Covington,00:00,3
-Svanir Shaman Chief,00:15,2
-Megadestroyer,00:30,3
-Fire Elemental,00:45,2
-The Shatterer,01:00,3
-Great Jungle Wurm,01:15,2
-Modniir Ulgoth,01:30,3
-Shadow Behemoth,01:45,2
-Golem Mark II,02:00,3
-Claw of Jormag,02:30,3
+name,location,time,frequency,schedule
+Admiral Taida Covington,Bloodtide Coast,00:00,3,
+Svanir Shaman Chief,Wayfarer Foothills,00:15,2,
+Megadestroyer,Mount Maelstrom,00:30,3,
+Fire Elemental,Metrica Province,00:45,2,
+The Shatterer,Blazeridge Steppes,01:00,3,
+Great Jungle Wurm,Caledon Forest,01:15,2,
+Modniir Ulgoth,Harathi Hinterlands,01:30,3,
+Shadow Behemoth,Queensdale,01:45,2,
+Golem Mark II,Mount Maelstrom,02:00,3,
+Claw of Jormag,Frostgorge Sound,02:30,3,
+Ley-Line Anomaly,Timberline Falls,00:20,6,
+Ley-Line Anomaly,Iron Marches,02:20,6,
+Ley-Line Anomaly,Gendarran Fields,04:20,6,
+Tequatl the Sunless,Sparkfly Fen,,,"'00:00','03:00','07:00','11:30','16:00','19:00'"
+Triple Trouble,Bloodtide Coast,,,"'01:00','04:00','08:00','12:30','17:00','20:00'"
+Karka Queen,Southsun Cove,,,"'02:00','06:00','10:30','15:00','18:00','23:00'"
