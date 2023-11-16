@@ -21,7 +21,7 @@ When playing in fullscreen mode, notifications may be suppressed by do not distu
 ## Roadmap
 I developed this app for my portfolio, but I also use it on a daily basis while playing GW2. Here's my roadmap for near-future improvements:
 - [x] Add event times for hardcore world bosses and the Ley-Line Anomaly ✨ Added in Version 1.1.0! ✨
-- [ ] More customisation options (opt-in/out of notifications per event)
+- [x] More customisation options (opt-in/out of notifications per event) ✨ Added in Version 1.2.0! ✨
 - [ ] GUI redesign and other visual updates
 
 [^1]: Astral was made with Java SE 21. Check your system version in Command Prompt with `java --version`

@@ -52,4 +52,4 @@ java/build/**
 out/
 
 # Other
-*/META-INF/*
+META-INF/
