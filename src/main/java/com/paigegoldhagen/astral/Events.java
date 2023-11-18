@@ -8,9 +8,9 @@ public class Events {
     public Integer Frequency;
     public String[] Schedule;
 
-    public String getName() { return Name; }
-    public String getLocation() { return Location; }
-    public String getTime() { return Time; }
-    public Integer getFrequency() { return Frequency; }
-    public String[] getSchedule() { return Schedule; }
+    public String getName() {return Name;}
+    public String getLocation() {return Location;}
+    public String getTime() {return Time;}
+    public Integer getFrequency() {return Frequency;}
+    public String[] getSchedule() {return Schedule;}
 }

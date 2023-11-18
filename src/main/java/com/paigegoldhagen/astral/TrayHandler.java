@@ -1,7 +1,6 @@
 package com.paigegoldhagen.astral;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * For preparing the tray icon.
@@ -14,7 +13,7 @@ public class TrayHandler {
      * @return                  the prepared tray icon
      * @throws AWTException     an error occurred with the GUI components or window frame
      */
-    public static TrayIcon prepareTrayIcon(BufferedImage image) throws AWTException {
+    public static TrayIcon prepareTrayIcon(Image image) throws AWTException {
         SystemTray systemTray = SystemTray.getSystemTray();
 
         TrayIcon trayIcon = new TrayIcon(image, "Astral");
