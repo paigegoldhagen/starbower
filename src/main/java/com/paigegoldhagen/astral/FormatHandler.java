@@ -25,34 +25,34 @@ public class FormatHandler {
                 .parse();
     }
 
-	/**
-	 * Get the notification message string depending on the event name
-	 * and if more than one event is happening at the same time.
-	 *
-	 * @param upcomingEvents		the list of upcoming events with event name and location
-	 * @param notifyTime			the notification reminder time in minutes
-	 *
-	 * @return						the string to display in the notification popup
-	 */
+    /**
+     * Get the notification message string depending on the event name
+     * and if more than one event is happening at the same time.
+     *
+     * @param upcomingEvents    the list of upcoming events with event name and location
+     * @param notifyTime        the notification reminder time in minutes
+     *
+     * @return                  the string to display in the notification popup
+     */
     public static String getNotificationMessage(List<UpcomingEvents> upcomingEvents, String notifyTime) {
-		String message = null;
-		String header = "Multiple events starting in " + notifyTime + " minutes!\n";
-		List<String> eventsList = new ArrayList<>();
-		
-		for (UpcomingEvents e : upcomingEvents) {
-			String eventName = e.getName();
-			eventsList.add(eventName);
-			
-			message = eventName + " will spawn in " + notifyTime + " minutes!";
-			
-			if (eventName.equals("Ley-Line Anomaly")) {
-				message = eventName + " will spawn in " + e.getLocation() + " in " + notifyTime + " minutes!";
-			}
-		}
-		
-		if (eventsList.size() > 1) {
-			message = header + eventsList.getFirst() + "\n" + eventsList.getLast();
-		}
-		return message;
+        String message = null;
+        String header = "Multiple events starting in " + notifyTime + " minutes!\n";
+        List<String> eventsList = new ArrayList<>();
+
+        for (UpcomingEvents e : upcomingEvents) {
+            String eventName = e.getName();
+            eventsList.add(eventName);
+
+            message = eventName + " will spawn in " + notifyTime + " minutes!";
+
+            if (eventName.equals("Ley-Line Anomaly")) {
+                message = eventName + " will spawn in " + e.getLocation() + " in " + notifyTime + " minutes!";
+            }
+        }
+
+        if (eventsList.size() > 1) {
+            message = header + eventsList.getFirst() + "\n" + eventsList.getLast();
+        }
+        return message;
     }
 }
