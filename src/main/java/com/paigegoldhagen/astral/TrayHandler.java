@@ -1,26 +1,25 @@
 package com.paigegoldhagen.astral;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
- * For preparing the tray icon.
+ * For initialising a TrayIcon used in the Windows system tray.
  */
 public class TrayHandler {
     /**
-     * Get a new TrayIcon and add it to the system tray.
+     * Create a TrayIcon using an Image and set the TrayIcon visual behaviour.
+     * Get the SystemTray instance and add the TrayIcon.
      *
-     * @param image             the app icon BufferedImage
-     * @return                  the prepared tray icon
-     * @throws AWTException     an error occurred with the GUI components or window frame
+     * @param trayImage         an Image file
+     * @return                  the new TrayIcon added to the system tray
+     * @throws AWTException     an error occurred with the GUI components or window
      */
-    public static TrayIcon prepareTrayIcon(BufferedImage image) throws AWTException {
-        SystemTray systemTray = SystemTray.getSystemTray();
-
-        TrayIcon trayIcon = new TrayIcon(image, "Astral");
+    public static TrayIcon getTrayIcon(Image trayImage) throws AWTException {
+        TrayIcon trayIcon = new TrayIcon(trayImage, "Astral");
         trayIcon.setImageAutoSize(true);
         trayIcon.setToolTip("Astral");
 
+        SystemTray systemTray = SystemTray.getSystemTray();
         systemTray.add(trayIcon);
         return trayIcon;
     }
