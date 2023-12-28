@@ -25,6 +25,7 @@ I developed this app for my portfolio, but I also use it on a daily basis while 
 - [x] More customisation options (opt-in/out of notifications per event) ✨ Added in Version 1.2.0! ✨
 - [x] GUI redesign and other visual updates ✨ Added in Version 1.3.0! ✨
 - [x] Bonus: Add event times for all remaining events (well, all events except Awakened Invasion) ✨ Added in Version 1.3.0! ✨
+
 Since I've reached all of my preliminary goals, I'm in the process of developing a new roadmap for long-term improvements. I'll update this space when the new roadmap is ready!
 
 [^1]: Astral was made with Java SE 21. Check your system version in Command Prompt with `java --version`
