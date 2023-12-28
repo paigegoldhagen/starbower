@@ -1,106 +1,98 @@
 package com.paigegoldhagen.astral;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.paigegoldhagen.astral.themes.AstralLaf;
+
 import java.awt.*;
-import java.io.*;
 import java.io.IOException;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The entry point for the app.
+ * The entry point to the app.
  */
 public class Astral {
     /**
-     * Prepare the tray icon, get the events timetable and default user preferences,
-     * display the GUI, and send a notification if there is an upcoming event.
-     * Pause for 1 second or 1 minute at the end of every loop.
+     * 1) Get the Event list from the FileHandler class.
+     * 2) Get the unique event groups/subgroups and specialty subgroups from the GroupHandler class.
+     * 3) Create a new FestivalComponents class instance.
+     * 4) Get the user preferences from the PreferenceHandler class.
+     * 5) Get the EventComponents list from the EventHandler class.
+     * 6) Create a new AppImages class instance.
+     * 7) Get the TrayIcon from the TrayHandler class.
+     * 8) Display the GUI.
+     * <p></p>
+     * In the main loop:
+     * 1) Get the TrackedEvent list from the TrackedEventHandler class.
+     * 2) Get the notification message from the MessageHandler class.
+     * 3) Send a notification using the NotificationHandler class.
      *
-     * @throws InterruptedException    the current thread was interrupted
-     * @throws IOException             the file couldn't be found or read
-     * @throws AWTException            an error occurred with the GUI components or window frame
+     * @throws IOException              the current thread was interrupted
+     * @throws AWTException             a file couldn't be found or read
+     * @throws InterruptedException     an error occurred with the GUI components or window
      */
-    public static void main(String[] args) throws InterruptedException, IOException, AWTException {
-        TrayIcon trayIcon = getTrayIcon();
+    public static void main(String[] args) throws IOException, AWTException, InterruptedException {
+        List<Event> eventList = FileHandler.mapEventData();
 
-        List<Timetable> timetable = getTimetable();
-        String defaultPreferences = calculateDefaultPreferences(timetable);
+        List<String> uniqueEventGroups = GroupHandler.getUniqueEventGroups(eventList);
+        List<String> uniqueEventSubgroups = GroupHandler.getUniqueEventSubgroups(eventList, uniqueEventGroups.getLast());
+        List<String> specialtySubgroupList = GroupHandler.getSpecialtySubgroupList(eventList, uniqueEventGroups);
 
-        GUI.initialiseGUI(defaultPreferences, timetable);
+        FestivalComponents festivalComponents = initialiseFestivalComponents(uniqueEventSubgroups);
+        UserPreferences userPrefs = PreferenceHandler.getUserPreferences(eventList, uniqueEventSubgroups, specialtySubgroupList);
+        List<EventComponents> eventComponentsList = EventHandler.getEventComponentsList(eventList, uniqueEventGroups.getLast(), uniqueEventSubgroups, specialtySubgroupList, userPrefs.getNotifyStates());
+
+        AppImages appImages = loadAppImages();
+        TrayIcon trayIcon = TrayHandler.getTrayIcon(appImages.getTrayImage());
+        GUI.displayGUI(festivalComponents, eventComponentsList, uniqueEventGroups, specialtySubgroupList, appImages.getAppIcons(), userPrefs);
 
         while (true) {
-            String notifyTime = GUI.getNotifyTime();
-            String notifyState = GUI.getNotifyState(defaultPreferences);
-
-            LocalTime utcTime = TimeHandler.getUtcTime();
             long millisecondsToWait = 1000;
 
-            List<UpcomingEvents> upcomingEvents = EventsHandler.getUpcomingEvents(timetable, notifyTime, notifyState, utcTime);
+            List<TrackedEvent> trackedEvents = TrackedEventHandler.getTrackedEvents(eventList, userPrefs);
 
-            if (!upcomingEvents.isEmpty()) {
-                String message = FormatHandler.getNotificationMessage(upcomingEvents, notifyTime);
-                Notifications.sendNotification(trayIcon, message);
+            if (!trackedEvents.isEmpty()) {
+                Message notificationMessage = MessageHandler.getNotificationMessage(trackedEvents, userPrefs.getNotifyMinutes(), trackedEvents.size());
+                NotificationHandler.sendNotification(notificationMessage, trayIcon);
                 millisecondsToWait = 60000;
             }
+
             Thread.sleep(millisecondsToWait);
         }
     }
 
     /**
-     * Prepare a tray icon using the PNG file image.
+     * Create a new AppImages class instance using Images loaded from the FileHandler class.
      *
-     * @return                 the prepared TrayIcon
-     *
-     * @throws IOException     the file couldn't be found or read
-     * @throws AWTException    an error occurred with the GUI components or window frame
+     * @return                  a new AppImages instance with a tray image and a list of app icons
+     * @throws IOException      a file couldn't be found or read
      */
-    private static TrayIcon getTrayIcon() throws IOException, AWTException {
-        Image appIcon = FileHandler.loadImage("icon.png");
-        return TrayHandler.prepareTrayIcon(appIcon);
+    private static AppImages loadAppImages() throws IOException {
+        Image trayImage = FileHandler.loadImage("icon-24.png");
+
+        String[] files = new String[]{"icon-16.png", "icon-24.png", "icon-32.png", "icon-48.png", "icon-256.png"};
+        List<Image> icons = FileHandler.loadImageList(files);
+
+        return new AppImages(trayImage, icons);
     }
 
     /**
-     * Get the events list from the CSV file input stream.
+     * Initialise the GUI look and feel, get the Festival list from the FileHandler class,
+     * and create a new FestivalComponents class instance using the FestivalHandler class.
      *
-     * @return    the Events class as a list of beans
+     * @param uniqueEventSubgroups      a list of unique event subgroup names
+     * @return                          a new FestivalComponents instance with a title label and a countdown label
      */
-    private static List<Events> getEventsList() {
-        InputStream csvFile = FileHandler.getInputStream("event-data.csv");
-        return FormatHandler.mapCsvToBeans(csvFile);
+    private static FestivalComponents initialiseFestivalComponents(List<String> uniqueEventSubgroups) {
+        initialiseLookAndFeel();
+        List<Festival> festivalList = FileHandler.mapFestivalData();
+        return FestivalHandler.getFestivalComponents(festivalList, uniqueEventSubgroups);
     }
 
     /**
-     * Calculate projected event times and add the updated events to the Timetable class list.
-     *
-     * @return    a list of events with name, location, and projected event times
+     * Register the location of the look and feel properties file and set up the custom theme.
      */
-    private static List<Timetable> getTimetable() {
-        List<Events> eventsList = getEventsList();
-        List<Timetable> timetable = new ArrayList<>();
-
-        for (Events e : eventsList) {
-            String name = e.getName();
-            String location = e.getLocation();
-            List<LocalTime> times = EventsHandler.getProjectedEventTimes(e);
-
-            Timetable event = new Timetable(name, location, times);
-            timetable.add(event);
-        }
-        return timetable;
-    }
-
-    /**
-     * Calculate the default state preferences based on the number of individual events.
-     *
-     * @param timetable    the list of events with name, location, and projected event times
-     * @return             a string containing the default state preferences
-     */
-    private static String calculateDefaultPreferences(List<Timetable> timetable) {
-        StringBuilder defaultPreferences = new StringBuilder();
-
-        for (Timetable t : timetable) {
-            defaultPreferences.append("1");
-        }
-        return String.valueOf(defaultPreferences);
+    private static void initialiseLookAndFeel() {
+        FlatLaf.registerCustomDefaultsSource("themes");
+        AstralLaf.setup();
     }
 }
