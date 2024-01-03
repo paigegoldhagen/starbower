@@ -29,22 +29,19 @@ public class FestivalHandler {
         JLabel countdownLabel = null;
 
         for (Festival festival : festivalList) {
-            String festivalString = festival.getName();
+            String festivalName = festival.getName();
             LocalDateTime startDate = formatDate(festival.getStartDate());
-
-            LocalDateTime festivalDate = formatDate(festival.getEndDate());
             boolean festivalOngoing = isFestivalOngoing(festival, utcDate);
 
             if (!festivalOngoing && isFestivalUpNext(festivalList, utcDate, startDate)) {
-                festivalString = "Next festival: " + festivalString;
-                festivalDate = startDate;
+                titleLabel = createTitleLabel("Next festival: " + festivalName);
+                countdownLabel = createCountdownLabel(utcDate, startDate, false);
             }
             else if (festivalOngoing) {
-                uniqueEventSubgroups.add(festivalString);
+                titleLabel = createTitleLabel(festivalName);
+                countdownLabel = createCountdownLabel(utcDate, formatDate(festival.getEndDate()), true);
+                uniqueEventSubgroups.add(festivalName);
             }
-
-            titleLabel = createTitleLabel(festivalString);
-            countdownLabel = createCountdownLabel(utcDate, festivalDate, festivalOngoing);
         }
 
         return new FestivalComponents(titleLabel, countdownLabel);
@@ -109,7 +106,7 @@ public class FestivalHandler {
      * @return                  the LocalDateTime of the nearest festival
      */
     private static LocalDateTime getNearestFestivalDate(List<Festival> festivalList, LocalDateTime utcDate) {
-        List<LocalDateTime> festivalStartDates = getFestivalStartDates(festivalList);
+        List<LocalDateTime> festivalStartDates = getFestivalStartDates(festivalList, utcDate);
         LocalDateTime nearestFestivalDate = calculateNearestFestivalDate(utcDate, festivalStartDates);
 
         int nearestFestivalDateIndex = festivalStartDates.indexOf(nearestFestivalDate);
@@ -131,12 +128,14 @@ public class FestivalHandler {
      * @param festivalList      a list of festivals with a name, start date, and end date
      * @return                  a list of LocalDateTime start dates
      */
-    private static List<LocalDateTime> getFestivalStartDates(List<Festival> festivalList) {
+    private static List<LocalDateTime> getFestivalStartDates(List<Festival> festivalList, LocalDateTime utcDate) {
         List<LocalDateTime> festivalStartDates = new ArrayList<>();
 
         for (Festival festival : festivalList) {
             LocalDateTime startDate = formatDate(festival.getStartDate());
-            festivalStartDates.add(startDate);
+            if (startDate.isAfter(utcDate)) {
+                festivalStartDates.add(startDate);
+            }
         }
 
         return festivalStartDates;
