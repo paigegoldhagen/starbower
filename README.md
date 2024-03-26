@@ -16,12 +16,12 @@ Starbower has a shiny new name, and with it, a completely redesigned backend! Th
 
 
 ## Troubleshooting
-#### Notifications not working
+### Notifications not working
 When playing in fullscreen mode, notifications may be suppressed by do not disturb settings. On Windows 11, go to `Settings > System > Notifications > Turn on do not disturb automatically` and uncheck the following:
 + When playing a game
 + When using an app in full-screen mode
 
-#### App won't launch
+### App won't launch
 1. Make sure your Java version is Java SE 21 or above. Check your system version in Command Prompt with `java --version`
 2. Put Starbower in a local directory, i.e. somewhere that doesn't need admin permissions, otherwise the app won't be able to create the embedded database. This is something I endeavour to improve in the future!
 
@@ -33,7 +33,7 @@ When playing in fullscreen mode, notifications may be suppressed by do not distu
 
 
 ## Technical info
-Developed for Windows
+#### Developed for Windows
 
 Languages & technologies
 + Java
@@ -43,7 +43,7 @@ Languages & technologies
 + H2 RDBMS
 + SQL
 
-#### Database design (ERD)
+### Database design (ERD)
 
 ![ERD](/assets/ERD.png)
 
