@@ -1,0 +1,1 @@
+SELECT FK_Category_NotifyState FROM Category;

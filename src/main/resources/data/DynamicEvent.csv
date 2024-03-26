@@ -1,0 +1,78 @@
+PK_DynamicEventID,DynamicEventName,FK_DynamicEvent_NotifyState,FK_DynamicEvent_Category,FK_DynamicEvent_Kind,FK_DynamicEvent_Waypoint
+701,Admiral Taida Covington,120,301,402,609
+702,Svanir Shaman Chief,121,301,402,617
+703,Megadestroyer,122,301,402,615
+704,Fire Elemental,123,301,402,612
+705,The Shatterer,124,301,402,626
+706,Great Jungle Wurm,125,301,402,610
+707,Modniir Ulgoth,126,301,402,606
+708,Shadow Behemoth,127,301,402,601
+709,Golem Mark II,128,301,402,616
+710,Claw of Jormag,129,301,402,623
+711,Tequatl the Sunless,130,302,402,614
+712,Triple Trouble,131,302,402,608
+713,Karka Queen,132,302,402,627
+714,Ley-Line Anomaly,133,303,405,622
+715,Ley-Line Anomaly,134,303,405,625
+716,Ley-Line Anomaly,135,303,405,603
+717,Twisted Marionette,136,304,402,629
+718,The Battle for Lion’s Arch,137,304,401,629
+719,Scarlet’s Invasion,138,304,401,604
+720,Tower of Nightmares,139,304,401,629
+721,Sandstorm,140,305,401,630
+722,Night and the Enemy,141,306,401,631
+723,Night Bosses,142,306,402,631
+724,Octovine,143,307,402,632
+725,Chak Gerent,144,308,402,633
+726,Advance on the Blighting Towers,145,309,401,634
+727,Noran’s Homestead,146,310,401,635
+728,Saidra’s Haven,147,310,401,636
+729,New Loamhurst,148,310,401,637
+730,Casino Blitz,149,311,401,638
+731,Choya Pinata,150,311,402,638
+732,Buried Treasure,151,312,401,639
+733,The Path to Ascension,152,313,401,640
+734,Doppelganger,153,313,402,640
+735,Junundu Rising,154,314,401,641
+736,Maws of Torment,155,314,401,642
+737,Forged with Fire,156,315,401,643
+738,Serpents’ Ire,157,315,401,644
+739,Awakened Invasion,158,316,405,627
+740,Awakened Invasion,159,316,405,613
+741,Awakened Invasion,160,316,405,611
+742,Awakened Invasion,161,316,405,602
+743,Awakened Invasion,162,316,405,618
+744,Awakened Invasion,163,316,405,624
+745,Awakened Invasion,164,316,405,605
+746,Palawadan,165,317,401,645
+747,Death-Branded Shatterer,166,318,402,646
+748,The Oil Floes,167,319,401,647
+749,Thunderhead Keep,168,319,401,648
+750,Effigy,169,320,401,649
+751,Doomlore Shrine,170,320,401,649
+752,Ooze Pits,171,320,401,650
+753,Metal Concert,172,320,401,650
+754,Drakkar,173,321,402,651
+755,Defend Jora’s Keep,174,321,401,652
+756,Dragonstorm,175,322,401,629
+757,Aetherblade Assault,176,323,401,653
+758,Kaineng Blackout,177,324,401,654
+759,Gang War,178,325,401,655
+760,Aspenwood,179,325,401,656
+761,Jade Maw,180,326,402,657
+762,The Battle for the Jade Sea,181,326,401,657
+763,Unlocking the Wizard’s Tower,182,327,401,658
+764,Target Practice,183,328,403,659
+765,Fly by Night,184,328,403,659
+766,Defense of Amnytas,185,329,405,660
+767,Convergences,186,328,406,659
+768,Hologram Stampede,187,332,405,618
+769,Hologram Stampede,188,332,405,620
+770,Hologram Stampede,189,332,405,621
+771,Hologram Stampede,190,332,405,619
+772,Labyrithine Skiffs,191,333,404,628
+773,Treasure Hunt,192,333,401,628
+774,Skimmer Slalom,193,333,404,628
+775,Fishing Tournament,194,333,401,628
+776,Flying Dolyak,195,333,404,628
+777,Mad King Says,196,334,401,607

@@ -1,0 +1,1 @@
+SELECT * FROM Category WHERE FK_Category_Expansion = ?;

@@ -1,0 +1,1 @@
+SELECT PK_NotifyStateID FROM NotifyState WHERE NotifyStateEnabled = true;

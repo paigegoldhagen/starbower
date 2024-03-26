@@ -1,31 +1,54 @@
-# Astral
-Astral is a customisable notification app that sends real-time alerts for upcoming events in Guild Wars 2. Developed for Windows using:
-+ Java
-+ Java Swing and AWT
-+ Apache Maven
-+ OpenCSV
-+ FlatLaf
+# Starbower ![Current Version](https://img.shields.io/github/v/release/paigegoldhagen/starbower?color=%233F4FAE) ![Downloads](https://img.shields.io/github/downloads/paigegoldhagen/starbower/total?color=%236BC3FF)
 
-![Astral GUI](/assets/images/GUI.png)
 
-The documentation for Astral can be found [here](https://paigegoldhagen.github.io/astral-docs)
+An app for receiving timely notifications on upcoming events in *Guild Wars 2*. Customise which events to be notified about, and how far in advance to be notified. Starbower also includes a nifty festival countdown tab, for those moments when you're anticipating the next festival or scrambling to complete all the achievements before it ends :)
 
-## Running the app (Windows)
-1. Download the [latest release](https://github.com/paigegoldhagen/astral/releases/latest)
-2. Launch `astral.jar`[^1]
+Download the [latest version of Starbower](https://github.com/paigegoldhagen/starbower/releases/latest) or read the [source code documentation](https://paigegoldhagen.github.io/starbower-docs/com/paigegoldhagen/starbower/package-summary.html)
+![GUI](/assets/GUI.png)
+## What's new in Version 1.4.0
+Starbower has a shiny new name, and with it, a completely redesigned backend! The scope of the project has grown from a semi-structured data seedling into a relational database sapling :)
++ App name changed from Astral to Starbower
++ New app icon
++ New GUI colour scheme and fonts
++ New SQL database backend
++ Added Awakened Invasion event
++ Adjusted notification reminder time choices
+
 
 ## Troubleshooting
+#### Notifications not working
 When playing in fullscreen mode, notifications may be suppressed by do not disturb settings. On Windows 11, go to `Settings > System > Notifications > Turn on do not disturb automatically` and uncheck the following:
 + When playing a game
 + When using an app in full-screen mode
 
+#### App won't launch
+1. Make sure your Java version is Java SE 21 or above. Check your system version in Command Prompt with `java --version`
+2. Put Starbower in a local directory, i.e. somewhere that doesn't need admin permissions, otherwise the app won't be able to create the embedded database. This is something I endeavour to improve in the future!
+
+
 ## Roadmap
-I developed this app for my portfolio, but I also use it on a daily basis while playing GW2. Here's my roadmap for near-future improvements:
-- [x] Add event times for hardcore world bosses and the Ley-Line Anomaly ✨ Added in Version 1.1.0! ✨
-- [x] More customisation options (opt-in/out of notifications per event) ✨ Added in Version 1.2.0! ✨
-- [x] GUI redesign and other visual updates ✨ Added in Version 1.3.0! ✨
-- [x] Bonus: Add event times for all remaining events (well, all events except Awakened Invasion) ✨ Added in Version 1.3.0! ✨
+- [ ] Windows native executable for future releases
+- [ ] Dark mode option
+- [ ] Waypoint button to copy the chat link to the clipboard
 
-Since I've reached all of my preliminary goals, I'm in the process of developing a new roadmap for long-term improvements. I'll update this space when the new roadmap is ready!
 
-[^1]: Astral was made with Java SE 21. Check your system version in Command Prompt with `java --version`
+## Technical info
+Developed for Windows
+
+Languages & technologies
++ Java
++ Apache Maven
++ Swing and AWT
++ FlatLaf
++ H2 RDBMS
++ SQL
+
+#### Database design (ERD)
+
+![ERD](/assets/ERD.png)
+
+
+## Feedback & contributions
+Starbower is in active development and I'm always learning and improving. [Send feedback](https://github.com/paigegoldhagen/starbower/issues) using the `bug`, `enhancement` or `question` labels. I'll respond to issues and make changes as best I can!
+
+The Starbower repository is open source, so please feel free to use the source code for your own projects :)

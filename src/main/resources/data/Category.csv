@@ -1,0 +1,36 @@
+PK_CategoryID,CategoryName,FK_Category_NotifyState,FK_Category_Expansion
+301,World Bosses,101,201
+302,Hardcore World Bosses,102,201
+303,Ley-Line Anomaly,103,201
+304,Living World Season 1,104,202
+305,Living World Season 2,,202
+306,Verdant Brink,105,203
+307,Auric Basin,,203
+308,Tangled Depths,,203
+309,Dragon’s Stand,,203
+310,Lake Doric,106,204
+311,Crystal Oasis,107,205
+312,Desert Highlands,,205
+313,Elon Riverlands,108,205
+314,The Desolation,109,205
+315,Domain of Vabbi,110,205
+316,Awakened Invasion,111,206
+317,Domain of Istan,,206
+318,Jahai Bluffs,,206
+319,Thunderhead Peaks,112,206
+320,Grothmar Valley,113,207
+321,Bjora Marches,114,207
+322,Eye of the North,,207
+323,Seitung Province,,208
+324,New Kaineng City,,208
+325,The Echovald Wilds,115,208
+326,Dragon’s End,116,208
+327,Skywatch Archipelago,,209
+328,The Wizard’s Tower,117,209
+329,Amnytas,,209
+330,Lunar New Year,,210
+331,Super Adventure Festival,,210
+332,Dragon Bash,118,210
+333,Festival of the Four Winds,119,210
+334,Halloween,,210
+335,Wintersday,,210

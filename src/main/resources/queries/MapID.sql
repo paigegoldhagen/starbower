@@ -1,0 +1,1 @@
+SELECT FK_Waypoint_Map FROM Waypoint WHERE PK_WaypointID = ?;

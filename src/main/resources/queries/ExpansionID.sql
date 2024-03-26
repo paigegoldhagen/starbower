@@ -1,0 +1,1 @@
+SELECT FK_Category_Expansion FROM Category WHERE PK_CategoryID = ?;

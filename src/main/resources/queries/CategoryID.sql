@@ -1,0 +1,1 @@
+SELECT FK_DynamicEvent_Category FROM DynamicEvent WHERE PK_DynamicEventID = ?;

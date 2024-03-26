@@ -1,0 +1,1 @@
+SELECT PK_ScheduleID FROM Schedule WHERE ScheduleFrequency = 7;

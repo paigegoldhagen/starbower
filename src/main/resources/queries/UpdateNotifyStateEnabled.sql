@@ -1,0 +1,1 @@
+UPDATE NotifyState SET NotifyStateEnabled = ? WHERE PK_NotifyStateID = ?;

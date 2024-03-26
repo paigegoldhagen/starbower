@@ -1,0 +1,1 @@
+SELECT FestivalStart FROM Festival;

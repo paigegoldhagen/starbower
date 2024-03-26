@@ -1,0 +1,1 @@
+SELECT * FROM DynamicEvent WHERE FK_DynamicEvent_Category = ?;

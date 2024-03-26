@@ -1,0 +1,1 @@
+SELECT ScheduleTime, ScheduleFrequency FROM Schedule WHERE FK_Schedule_DynamicEvent = ?;

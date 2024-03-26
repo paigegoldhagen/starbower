@@ -1,0 +1,1 @@
+SELECT * FROM DynamicEvent WHERE PK_DynamicEventID = ?;

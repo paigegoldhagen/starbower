@@ -1,0 +1,1 @@
+SELECT MAX(PK_ExpansionID) AS LastExpansion FROM Expansion;
