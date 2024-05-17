@@ -1,0 +1,1 @@
+UPDATE Festival SET FestivalStart = ?, FestivalEnd = ? WHERE FK_Festival_Category = ?;

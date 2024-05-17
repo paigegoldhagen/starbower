@@ -69,7 +69,7 @@ public class TimetableHandler implements QueryHandler {
     }
 
     /**
-     * Calculate the projected event times based on the intiial start time and frequency of the event.
+     * Calculate the projected event times based on the initial start time and frequency of the event.
      * Add the projected times to a list.
      *
      * @param timeList          a list of initial Timetable times

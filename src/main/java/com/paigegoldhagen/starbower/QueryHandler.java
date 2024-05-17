@@ -28,6 +28,58 @@ public interface QueryHandler extends QueryExecutor {
     }
 
     /**
+     * Get the festival and temp festival data, compare the data,
+     * and update the Festival table if the data does not match.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     *
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static void updateFestivalTable(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        QueryExecutor.createTempTable(databaseConnection, sqlQueries);
+
+        List<Festival> festivalList = getFestivalList(databaseConnection, sqlQueries, "Festivals");
+        List<Festival> tempFestivalList = getFestivalList(databaseConnection, sqlQueries, "FestivalsTemp");
+
+        for (Festival tempFestival : tempFestivalList) {
+            LocalDateTime startDate = tempFestival.getStartDate();
+            LocalDateTime endDate = tempFestival.getEndDate();
+
+            for (Festival festival : festivalList) {
+                if (!festival.getStartDate().equals(startDate) && !festival.getEndDate().equals(endDate)) {
+                    QueryExecutor.updateFestivalTable(databaseConnection, sqlQueries, tempFestival.getCategoryID(), startDate, endDate);
+                }
+            }
+        }
+    }
+
+    /**
+     * Get all information from a table based on the query name and add new Festival classes to a list.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param queryName             the query name string
+     *
+     * @return                      a list of Festival classes
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static List<Festival> getFestivalList(Connection databaseConnection, Queries sqlQueries, String queryName) throws SQLException {
+        List<Festival> festivalList = new ArrayList<>();
+
+        ResultSet festivals = QueryExecutor.getBasicResultSet(databaseConnection, sqlQueries, queryName);
+
+        while (festivals.next()) {
+            int categoryID = festivals.getInt("FK_Festival_Category");
+            LocalDateTime startDate = festivals.getTimestamp("FestivalStart").toLocalDateTime();
+            LocalDateTime endDate = festivals.getTimestamp("FestivalEnd").toLocalDateTime();
+
+            festivalList.add(new Festival(categoryID, startDate, endDate));
+        }
+        return festivalList;
+    }
+
+    /**
      * Get all information from the NotifyState table and add new NotifyState classes to a list.
      *
      * @param databaseConnection    the connection to the Starbower relational database

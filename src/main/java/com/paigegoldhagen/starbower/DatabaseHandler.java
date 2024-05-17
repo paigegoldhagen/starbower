@@ -23,7 +23,7 @@ public class DatabaseHandler implements QueryHandler {
     }
 
     /**
-     * Create the database tables and restore saved preferences from the Windows Registry.
+     * Create and update the database tables and restore saved preferences from the Windows Registry.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
@@ -33,6 +33,7 @@ public class DatabaseHandler implements QueryHandler {
      */
     public static void populateDatabase(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry) throws SQLException {
         QueryHandler.createTables(databaseConnection, sqlQueries);
+        QueryHandler.updateFestivalTable(databaseConnection, sqlQueries);
         restoreSavedPreferences(databaseConnection, sqlQueries, windowsRegistry);
     }
 

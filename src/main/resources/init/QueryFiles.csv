@@ -2,6 +2,7 @@ Categories.sql
 CategoryID.sql
 CategoryNotifyStateIDs.sql
 CreateTables.sql
+CreateTempTable.sql
 DynamicEvent.sql
 DynamicEventID.sql
 DynamicEvents.sql
@@ -11,6 +12,7 @@ Expansions.sql
 FestivalCategory.sql
 Festivals.sql
 FestivalStartDates.sql
+FestivalsTemp.sql
 LastExpansion.sql
 MapID.sql
 MapName.sql
@@ -21,6 +23,7 @@ NotifyStates.sql
 RotationalCategoryID.sql
 RotationalScheduleIDs.sql
 Schedule.sql
+UpdateFestivalTable.sql
 UpdateNotifyStateEnabled.sql
 UpdateScheduleTime.sql
 WaypointName.sql

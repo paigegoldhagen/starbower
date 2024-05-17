@@ -14,6 +14,12 @@ Starbower has a shiny new name, and with it, a completely redesigned backend! Th
 + Added Awakened Invasion event
 + Adjusted notification reminder time choices
 
+<br>
+
+Version 1.4.1
++ Added code for updating the Festival table with current festival start and end dates
+
+<br>
 
 ## Troubleshooting
 ### Notifications not working
@@ -21,16 +27,18 @@ When playing in fullscreen mode, notifications may be suppressed by do not distu
 + When playing a game
 + When using an app in full-screen mode
 
-### App won't launch
+### Launch issues
 1. Make sure your Java version is Java SE 21 or above. Check your system version in Command Prompt with `java --version`
 2. Put Starbower in a local directory, i.e. somewhere that doesn't need admin permissions, otherwise the app won't be able to create the embedded database. This is something I endeavour to improve in the future!
 
+<br>
 
-## Roadmap
+## Upcoming features
 - [ ] Windows native executable for future releases
 - [ ] Dark mode option
 - [ ] Waypoint button to copy the chat link to the clipboard
 
+<br>
 
 ## Technical info
 #### Developed for Windows
@@ -47,8 +55,9 @@ Languages & technologies
 
 ![ERD](/assets/ERD.png)
 
+<br>
 
-## Feedback & contributions
-Starbower is in active development and I'm always learning and improving. [Send feedback](https://github.com/paigegoldhagen/starbower/issues) using the `bug`, `enhancement` or `question` labels. I'll respond to issues and make changes as best I can!
+## Feedback & code usage
+Starbower is in active development and I'm always learning and improving. You can [send feedback](https://github.com/paigegoldhagen/starbower/issues) using the `bug`, `enhancement` or `question` labels - I'll respond to issues and make changes as best I can!
 
-The Starbower repository is open source, so please feel free to use the source code for your own projects :)
+The entire Starbower repository is open source, so please feel free to use the source code for your own projects :)

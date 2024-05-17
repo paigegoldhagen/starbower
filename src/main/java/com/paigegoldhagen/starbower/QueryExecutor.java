@@ -1,6 +1,7 @@
 package com.paigegoldhagen.starbower;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -19,6 +20,42 @@ public interface QueryExecutor {
         String queryString = sqlQueries.getQueryString("CreateTables");
         Statement sqlStatement = databaseConnection.createStatement();
         sqlStatement.execute(queryString);
+    }
+
+    /**
+     * Get the CreateTempTable query string and execute the SQL statement.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     *
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static void createTempTable(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        String queryString = sqlQueries.getQueryString("CreateTempTable");
+        Statement sqlStatement = databaseConnection.createStatement();
+        sqlStatement.execute(queryString);
+    }
+
+    /**
+     * Get the UpdateFestivalTable query string,
+     * prepare a SQL statement using the festival column ID, start date and end date,
+     * and execute the prepared SQL statement.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param categoryID            the festival category ID integer
+     * @param startDate             the festival start date as LocalDateTime
+     * @param endDate               the festival end date as LocalDateTime
+     *
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static void updateFestivalTable(Connection databaseConnection, Queries sqlQueries, Integer categoryID, LocalDateTime startDate, LocalDateTime endDate) throws SQLException {
+        String queryString = sqlQueries.getQueryString("UpdateFestivalTable");
+        PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
+        preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate));
+        preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate));
+        preparedStatement.setInt(3, categoryID);
+        preparedStatement.executeUpdate();
     }
 
     /**

@@ -13,6 +13,12 @@ public class Festival {
     public Boolean IsOngoing;
     public List<DynamicEvent> DynamicEventList;
 
+    public Festival(Integer categoryID, LocalDateTime startDate, LocalDateTime endDate) {
+        this.CategoryID = categoryID;
+        this.StartDate = startDate;
+        this.EndDate = endDate;
+    }
+
     public Festival(Integer categoryID, String name, LocalDateTime startDate, LocalDateTime endDate, Boolean isOngoing, List<DynamicEvent> dynamicEventList) {
         this.CategoryID = categoryID;
         this.Name = name;
