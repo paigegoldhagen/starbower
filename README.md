@@ -4,7 +4,13 @@
 An app for receiving timely notifications on upcoming events in *Guild Wars 2*. Customise which events to be notified about, and how far in advance to be notified. Starbower also includes a nifty festival countdown tab, for those moments when you're anticipating the next festival or scrambling to complete all the achievements before it ends :)
 
 Download the [latest version of Starbower](https://github.com/paigegoldhagen/starbower/releases/latest) or read the [source code documentation](https://paigegoldhagen.github.io/starbower-docs/com/paigegoldhagen/starbower/package-summary.html)
+
+<br>
+
 ![GUI](/assets/GUI.png)
+
+<br>
+
 ## What's new in Version 1.4.0
 Starbower has a shiny new name, and with it, a completely redesigned backend! The scope of the project has grown from a semi-structured data seedling into a relational database sapling :)
 + App name changed from Astral to Starbower
@@ -18,6 +24,11 @@ Starbower has a shiny new name, and with it, a completely redesigned backend! Th
 
 Version 1.4.1
 + Added code for updating the Festival table with current festival start and end dates
+
+<br>
+
+Version 1.4.2
++ New dark theme
 
 <br>
 
@@ -35,7 +46,7 @@ When playing in fullscreen mode, notifications may be suppressed by do not distu
 
 ## Upcoming features
 - [ ] Windows native executable for future releases
-- [ ] Dark mode option
+- [x] Dark mode option ✨ Added in Version 1.4.2! ✨
 - [ ] Waypoint button to copy the chat link to the clipboard
 
 <br>
@@ -50,6 +61,9 @@ Languages & technologies
 + FlatLaf
 + H2 RDBMS
 + SQL
++ OpenCSV
+
+<br>
 
 ### Database design (ERD)
 

@@ -38,66 +38,36 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
     }
 
     /**
-     * Create reminder labels and get the JComboBox dropdown list.
-     * Put the created components into a component list.
+     * Set the Dropdown panel layout and add the dropdown components to the panel.
      *
-     * @param windowsRegistry   the user preferences for Starbower in the Windows Registry
-     * @return                  the labels and JComboBox in a component list
+     * @param dropdownComponentList a list of JLabels and a dropdown selection box
+     * @return                      a panel populated with the dropdown components
      */
-    static List<JComponent> getDropdownComponentList(Preferences windowsRegistry) {
-        JLabel leftReminder = new JLabel("Remind me");
-        JLabel rightReminder = new JLabel("minutes before an event starts");
-        JComboBox<String> dropdownList = createDropdownList(windowsRegistry);
-
-        return List.of(leftReminder, dropdownList, rightReminder);
-    }
-
-    /**
-     * Create a JComboBox, set the selected item using the default or saved user preference,
-     * set the preferred size of the JComboBox and add a listener.
-     *
-     * @param windowsRegistry   the user preferences for Starbower in the Windows Registry
-     * @return                  a JComboBox of selectable items
-     */
-    private static JComboBox<String> createDropdownList(Preferences windowsRegistry) {
-        JComboBox<String> dropdownList = new JComboBox<>(new String[]{"5", "10", "15", "20", "25", "30"});
-        dropdownList.setSelectedItem(windowsRegistry.get("Notify Minutes", "10"));
-        dropdownList.setPreferredSize(new Dimension(60, 25));
-
-        addDropdownListener(dropdownList, windowsRegistry);
-
-        return dropdownList;
-    }
-
-    /**
-     * Add a listener to the JComboBox to save the selected item in the Windows Registry.
-     *
-     * @param dropdownList      the JComboBox of selectable items
-     * @param windowsRegistry   the user preferences for Starbower in the Windows Registry
-     */
-    private static void addDropdownListener(JComboBox<String> dropdownList, Preferences windowsRegistry) {
-        dropdownList.addItemListener(itemEventReceiver -> {
-            String selectedNotifyMinutes = String.valueOf(dropdownList.getSelectedItem());
-            windowsRegistry.put("Notify Minutes", selectedNotifyMinutes);
-        });
-    }
-
-    /**
-     * Set the dropdown panel layout and add each dropdown component to the panel.
-     *
-     * @param dropdownPanel         the panel for the dropdown components
-     * @param dropdownComponentList a list of the dropdown components
-     */
-    static void addDropdownComponents(JPanel dropdownPanel, List<JComponent> dropdownComponentList) {
+    static JPanel getDropdownPanel(List<JComponent> dropdownComponentList) {
+        JPanel dropdownPanel = newPanel();
         GridBagConstraints layout = new GridBagConstraints();
         LayoutHandler.setDropdownPanelLayout(layout);
 
         for (JComponent component : dropdownComponentList) {
-            if (component.equals(dropdownComponentList.getLast())) {
-                layout.weightx = 1;
-            }
-            layout.gridx += 1;
             dropdownPanel.add(component, layout);
+        }
+        return dropdownPanel;
+    }
+
+    /**
+     * Set the Dropdown panel layout and add the panels to the top panel.
+     * Update the Dropdown panel layout for each panel added.
+     *
+     * @param topPanel          the panel to add the dropdown panels
+     * @param dropdownPanelList a list of JPanels containing JLabels and a dropdown selection box
+     */
+    static void addDropdownPanelsToTopPanel(JPanel topPanel, List<JPanel> dropdownPanelList) {
+        GridBagConstraints layout = new GridBagConstraints();
+        LayoutHandler.setDropdownPanelLayout(layout);
+
+        for (JPanel panel : dropdownPanelList) {
+            LayoutHandler.updateDropdownPanelLayout(layout, dropdownPanelList, panel);
+            topPanel.add(panel, layout);
         }
     }
 
@@ -188,13 +158,27 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
     }
 
     /**
-     * Add a listener to the tabbed pane to reset the scroll position back to the top when switching tabs.
+     * Add a listener to the tabbed pane to reset the scroll position back to the top
+     * and request focus in the frame when switching tabs.
      *
      * @param tabbedPane    the collection of scroll pane components separated by tabs
      * @param scrollPane    a scroll pane with a viewport
      */
     private static void addTabbedPaneListener(JTabbedPane tabbedPane, JScrollPane scrollPane) {
-        tabbedPane.addChangeListener(changeEventReceiver -> scrollPane.getVerticalScrollBar().setValue(0));
+        tabbedPane.addChangeListener(changeEventReceiver -> {
+            scrollPane.getVerticalScrollBar().setValue(0);
+            setFrameFocus(tabbedPane);
+        });
+    }
+
+    /**
+     * Once all GUI components have loaded and/or finished processing tasks,
+     * request focus in the frame for the tabbed pane.
+     *
+     * @param tabbedPane    the tabbed pane to focus
+     */
+    static void setFrameFocus(JTabbedPane tabbedPane) {
+        SwingUtilities.invokeLater(tabbedPane::requestFocusInWindow);
     }
 
     /**
@@ -557,10 +541,7 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      */
     private static void addCategoryPanelsToExpansionPanel(JPanel expansionPanel, List<JPanel> categoryPanelList, GridBagConstraints layout) {
         for (JPanel categoryPanel : categoryPanelList) {
-            if (categoryPanel.equals(categoryPanelList.getLast())) {
-                layout.insets = new Insets(0, 0, 20, 0);
-            }
-            layout.gridy += 1;
+            LayoutHandler.updateExpansionPanelLayout(layout, categoryPanelList, categoryPanel);
             expansionPanel.add(categoryPanel, layout);
         }
     }

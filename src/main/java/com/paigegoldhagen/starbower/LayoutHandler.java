@@ -1,6 +1,8 @@
 package com.paigegoldhagen.starbower;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Interface handling the layout for GUI components.
@@ -43,6 +45,22 @@ public interface LayoutHandler {
     }
 
     /**
+     * Update the dropdown panel X weight, insets, anchor, and X grid position.
+     *
+     * @param layout            a class for setting visual constraints for GUI components
+     * @param dropdownPanelList a list of panels containing JLabels and a dropdown selection box
+     * @param dropdownPanel     the panel to determine additional updates
+     */
+    static void updateDropdownPanelLayout(GridBagConstraints layout, List<JPanel> dropdownPanelList, JPanel dropdownPanel) {
+        if (dropdownPanel.equals(dropdownPanelList.getLast())) {
+            layout.weightx = 1.0;
+            layout.insets = new Insets(0, 8, 0, 8);
+        }
+        layout.anchor = GridBagConstraints.LAST_LINE_END;
+        layout.gridx += 1;
+    }
+
+    /**
      * Set the viewport anchor, fill and X/Y weights.
      *
      * @param layout    a class for setting visual constraints for GUI components
@@ -65,6 +83,20 @@ public interface LayoutHandler {
         layout.weightx = 1.0;
         layout.weighty = 1.0;
         layout.insets = new Insets(0, 0, 50, 0);
+    }
+
+    /**
+     * Update the Expansion panel insets and Y grid position.
+     *
+     * @param layout            a class for setting visual constraints for GUI components
+     * @param categoryPanelList a list of panels containing JCheckboxes and JLabels
+     * @param categoryPanel     the panel to determine additional updates
+     */
+    static void updateExpansionPanelLayout(GridBagConstraints layout, List<JPanel> categoryPanelList, JPanel categoryPanel) {
+        if (categoryPanel.equals(categoryPanelList.getLast())) {
+            layout.insets = new Insets(0, 0, 20, 0);
+        }
+        layout.gridy += 1;
     }
 
     /**

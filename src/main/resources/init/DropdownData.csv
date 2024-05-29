@@ -1,0 +1,3 @@
+    FirstLabelText,SecondLabelText,SelectionData,PreferenceKey,PreferenceValue,SizeWidth,SizeHeight
+    Remind me,minutes before an event starts,"'5','10','15','20','25','30'",Notify Minutes,10,60,25
+    Theme:,,"'Light','Dark'",Theme,Light,80,25

@@ -1,5 +1,7 @@
 package com.paigegoldhagen.starbower;
 
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.enums.CSVReaderNullFieldIndicator;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -7,6 +9,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,5 +96,20 @@ public class ResourceHandler {
 
             line = textReader.readLine();
         }
+    }
+
+    /**
+     * Get the input stream from the DropdownData CSV and map the data to the Dropdown class.
+     *
+     * @return  a list of Dropdown classes
+     */
+    public static List<Dropdown> getDropdownList() {
+        InputStream dropdownData = FileHandler.getInputStream("init/DropdownData.csv");
+
+        return new CsvToBeanBuilder<Dropdown>(new InputStreamReader(dropdownData))
+                .withType(Dropdown.class)
+                .withFieldAsNull(CSVReaderNullFieldIndicator.BOTH)
+                .build()
+                .parse();
     }
 }

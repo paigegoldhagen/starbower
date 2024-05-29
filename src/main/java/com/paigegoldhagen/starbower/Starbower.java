@@ -35,7 +35,8 @@ public class Starbower {
     }
 
     /**
-     * Register the FlatLaf custom fonts using the ResourceHandler and display the GUI.
+     * Register the FlatLaf custom fonts and get the Dropdown list using the ResourceHandler
+     * and display the GUI.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
@@ -48,7 +49,8 @@ public class Starbower {
      */
     private static void initialiseGUI(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry, List<Image> appIconList) throws IOException, FontFormatException, SQLException {
         ResourceHandler.registerCustomFonts();
-        GUI.displayGUI(databaseConnection, sqlQueries, windowsRegistry, appIconList);
+        List<Dropdown> dropdownList = ResourceHandler.getDropdownList();
+        GUI.displayGUI(databaseConnection, sqlQueries, windowsRegistry, appIconList, dropdownList);
     }
 
     /**
