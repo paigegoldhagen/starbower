@@ -33,7 +33,7 @@ public class DatabaseHandler implements QueryHandler {
      */
     public static void populateDatabase(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry) throws SQLException {
         QueryHandler.createTables(databaseConnection, sqlQueries);
-        QueryHandler.updateFestivalTable(databaseConnection, sqlQueries);
+        QueryHandler.updateTables(databaseConnection, sqlQueries);
         restoreSavedPreferences(databaseConnection, sqlQueries, windowsRegistry);
     }
 

@@ -25,9 +25,10 @@ public class Notifications {
      * @param sqlQueries            a class for retrieving SQL query strings
      * @param windowsRegistry       the user preferences for Starbower in the Windows Registry
      * @param trayIcon              the tray icon in the system tray
+     * @param dropdownList          a list of Dropdown classes containing data for JLabels and dropdown selection boxes
      */
-    public static void scheduleNotificationSender(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry, TrayIcon trayIcon) {
-        Runnable sendNotification = sendNotification(databaseConnection, sqlQueries, windowsRegistry, trayIcon);
+    public static void scheduleNotificationSender(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry, TrayIcon trayIcon, List<Dropdown> dropdownList) {
+        Runnable sendNotification = sendNotification(databaseConnection, sqlQueries, windowsRegistry, trayIcon, dropdownList);
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(sendNotification, 0, 1, TimeUnit.SECONDS);
     }
@@ -41,16 +42,17 @@ public class Notifications {
      * @param sqlQueries            a class for retrieving SQL query strings
      * @param windowsRegistry       the user preferences for Starbower in the Windows Registry
      * @param trayIcon              the tray icon in the system tray
+     * @param dropdownList          a list of Dropdown classes containing data for JLabels and dropdown selection boxes
      *
      * @return                      the methods to run
      */
-    private static Runnable sendNotification(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry, TrayIcon trayIcon) {
+    private static Runnable sendNotification(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry, TrayIcon trayIcon, List<Dropdown> dropdownList) {
         return () -> {
             try {
                 LocalDateTime utcDate = getUtcDate();
 
                 ScheduleHandler.updateScheduleTable(databaseConnection, sqlQueries, utcDate);
-                int notifyMinutes = Integer.parseInt(windowsRegistry.get("Notify Minutes", "10"));
+                int notifyMinutes = Integer.parseInt(windowsRegistry.get(dropdownList.getFirst().getPreferenceKey(), dropdownList.getFirst().getPreferenceValue()));
 
                 List<DynamicEvent> upcomingDynamicEventList = UpcomingEvents.getUpcomingDynamicEventList(databaseConnection, sqlQueries, utcDate, notifyMinutes);
 

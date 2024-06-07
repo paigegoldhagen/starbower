@@ -32,7 +32,8 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
 
     /**
      * Remove any out of date Festival components from the Festival panel,
-     * populate the Festival panel with new Festival components, and repaint the Festival panel.
+     * populate the Festival panel with new Festival components, add listeners to the populated checkboxes,
+     * and repaint the Festival panel.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
@@ -47,6 +48,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
 
             try {
                 populateFestivalPanel(databaseConnection, sqlQueries, festivalPanel, checkboxList);
+                ComponentHandler.addCheckboxListeners(databaseConnection, sqlQueries, checkboxList);
             }
             catch (SQLException e) {
                 throw new RuntimeException(e);

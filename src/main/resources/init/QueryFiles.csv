@@ -1,8 +1,8 @@
+AddWaypointTableColumn.sql
 Categories.sql
 CategoryID.sql
 CategoryNotifyStateIDs.sql
 CreateTables.sql
-CreateTempTable.sql
 DynamicEvent.sql
 DynamicEventID.sql
 DynamicEvents.sql
@@ -26,4 +26,5 @@ Schedule.sql
 UpdateFestivalTable.sql
 UpdateNotifyStateEnabled.sql
 UpdateScheduleTime.sql
+UpdateWaypointTable.sql
 WaypointName.sql

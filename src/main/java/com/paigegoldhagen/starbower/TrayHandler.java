@@ -16,9 +16,11 @@ public class TrayHandler {
      * @throws AWTException the TrayIcon could not be added to the system tray
      */
     public static TrayIcon getTrayIcon(Image trayImage) throws AWTException {
-        TrayIcon trayIcon = new TrayIcon(trayImage, "Starbower");
+        String appName = "Starbower";
+
+        TrayIcon trayIcon = new TrayIcon(trayImage, appName);
         trayIcon.setImageAutoSize(true);
-        trayIcon.setToolTip("Starbower - GW2 Event Notifications");
+        trayIcon.setToolTip(appName);
 
         SystemTray systemTray = SystemTray.getSystemTray();
         systemTray.add(trayIcon);

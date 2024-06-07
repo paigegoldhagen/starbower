@@ -1,8 +1,9 @@
 package com.paigegoldhagen.starbower;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface handling the preparation and execution of SQL queries to the database.
@@ -23,39 +24,38 @@ public interface QueryExecutor {
     }
 
     /**
-     * Get the CreateTempTable query string and execute the SQL statement.
+     * Get the AddTableColumn query string and execute the SQL statement.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    static void createTempTable(Connection databaseConnection, Queries sqlQueries) throws SQLException {
-        String queryString = sqlQueries.getQueryString("CreateTempTable");
-        Statement sqlStatement = databaseConnection.createStatement();
-        sqlStatement.execute(queryString);
+    static void addColumnToWaypointTable(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        String queryString = sqlQueries.getQueryString("AddWaypointTableColumn");
+        PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
+        preparedStatement.executeUpdate();
     }
 
     /**
-     * Get the UpdateFestivalTable query string,
-     * prepare a SQL statement using the festival column ID, start date and end date,
+     * Get the query string for each table needing to be updated
      * and execute the prepared SQL statement.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
-     * @param categoryID            the festival category ID integer
-     * @param startDate             the festival start date as LocalDateTime
-     * @param endDate               the festival end date as LocalDateTime
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    static void updateFestivalTable(Connection databaseConnection, Queries sqlQueries, Integer categoryID, LocalDateTime startDate, LocalDateTime endDate) throws SQLException {
-        String queryString = sqlQueries.getQueryString("UpdateFestivalTable");
-        PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
-        preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate));
-        preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate));
-        preparedStatement.setInt(3, categoryID);
-        preparedStatement.executeUpdate();
+    static void updateTablesFromTempTables(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        List<String> tableNameList = new ArrayList<>(List.of(new String[]{"Festival", "Waypoint"}));
+
+        for (String tableName : tableNameList) {
+            String queryName = String.format("Update%sTable", tableName);
+            String queryString = sqlQueries.getQueryString(queryName);
+
+            PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
+            preparedStatement.executeUpdate();
+        }
     }
 
     /**

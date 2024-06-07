@@ -1,1 +1,1 @@
-UPDATE Festival SET FestivalStart = ?, FestivalEnd = ? WHERE FK_Festival_Category = ?;
+UPDATE Festival f SET f.FestivalStart = (SELECT TOP 1 t.FestivalStart FROM TEMP_Festival t WHERE t.FK_Festival_Category = f.FK_Festival_Category), f.FestivalEnd = (SELECT TOP 1 t.FestivalEnd FROM TEMP_Festival t WHERE t.FK_Festival_Category = f.FK_Festival_Category);

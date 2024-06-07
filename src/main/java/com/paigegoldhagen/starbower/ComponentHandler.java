@@ -524,6 +524,17 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
     }
 
     /**
+     * Add checkbox listeners for the Checkbox list using the CheckboxHandler.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param checkboxList          a list of all JCheckbox components displayed on the GUI
+     */
+    static void addCheckboxListeners(Connection databaseConnection, Queries sqlQueries, List<JCheckBox> checkboxList) {
+        CheckboxHandler.addCheckboxListeners(databaseConnection, sqlQueries, checkboxList);
+    }
+
+    /**
      * Create a new panel with a GridBagLayout manager.
      *
      * @return  a panel with a specific layout manager

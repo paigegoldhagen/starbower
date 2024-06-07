@@ -39,10 +39,22 @@ AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Map.csv');
 CREATE TABLE IF NOT EXISTS Waypoint (
 	PK_WaypointID INT PRIMARY KEY,
 	WaypointName NVARCHAR(50) NOT NULL,
+	WaypointLink NVARCHAR(50) NOT NULL,
 	FK_Waypoint_Map INT NOT NULL,
 
 	FOREIGN KEY (FK_Waypoint_Map)
 	REFERENCES Map(PK_MapID)
+)
+AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Waypoint.csv');
+
+CREATE TEMP TABLE TEMP_Waypoint (
+    PK_WaypointID INT PRIMARY KEY,
+    WaypointName NVARCHAR(50) NOT NULL,
+    WaypointLink NVARCHAR(50) NOT NULL,
+    FK_Waypoint_Map INT NOT NULL,
+
+    FOREIGN KEY (FK_Waypoint_Map)
+    REFERENCES Map(PK_MapID)
 )
 AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Waypoint.csv');
 
@@ -80,6 +92,16 @@ CREATE TABLE IF NOT EXISTS Schedule (
 AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Schedule.csv');
 
 CREATE TABLE IF NOT EXISTS Festival (
+	FK_Festival_Category INT NOT NULL,
+	FestivalStart TIMESTAMP NOT NULL,
+	FestivalEnd TIMESTAMP NOT NULL,
+
+	FOREIGN KEY (FK_Festival_Category)
+	REFERENCES Category(PK_CategoryID)
+)
+AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Festival.csv');
+
+CREATE TEMP TABLE TEMP_Festival (
 	FK_Festival_Category INT NOT NULL,
 	FestivalStart TIMESTAMP NOT NULL,
 	FestivalEnd TIMESTAMP NOT NULL,

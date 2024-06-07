@@ -1,61 +1,61 @@
-PK_WaypointID,WaypointName,FK_Waypoint_Map
-601,Swamplost Haven Waypoint,501
-602,Claypool Waypoint,501
-603,Provern Shore Waypoint,502
-604,Cornucopian Fields Waypoint,502
-605,Ascalon Settlement Waypoint,502
-606,Cloven Hoof Waypoint,503
-607,Trader’s Forum Waypoint,504
-608,Firthside Vigil Waypoint,505
-609,Laughing Gull Waypoint,505
-610,Twilight Arbor Waypoint,506
-611,Mabon Waypoint,506
-612,Muridian Waypoint,507
-613,Arterium Haven Waypoint,507
-614,Splintered Coast Waypoint,508
-615,Maelstrom’s Waypoint,509
-616,Old Sledge Site Waypoint,509
-617,Vendrake’s Homestead Waypoint,510
-618,Twinspur Haven Waypoint,510
-619,Torstvedt Homestead Waypoint,511
-620,Havfrue Waypoint,512
-621,Pinnacle Enclave Waypoint,513
-622,Valance Tutory Waypoint,514
-623,Earthshake Waypoint,515
-624,Ashford Waypoint,516
-625,Village of Scalecatch Waypoint,517
-626,Lowland Burns Waypoint,518
-627,Pearl Islet Waypoint,519
-628,Bazaar Docks Waypoint,520
-629,Eye of the North Waypoint,521
-630,Dry Top Entry Waypoint,522
-631,Pact Encampment Waypoint,523
-632,Wanderer’s Waypoint,524
-633,Ley-Line Confluence Waypoint,525
-634,Pact Base Camp Waypoint,526
-635,Red Leaf Retreat Waypoint,527
-636,Doric's Landing Waypoint,527
-637,Lakeside Bazaar Waypoint,527
-638,Amnoon Waypoint,528
-639,Makali Outpost Waypoint,529
-640,Augury’s Shadow Waypoint,530
-641,Lair of the Forgotten Waypoint,531
-642,The Darklands Waypoint,531
-643,Necropolis Waypoint,532
-644,Market Ruins Waypoint,532
-645,Chalon Docks Waypoint,533
-646,Soul’s Vendetta Waypoint,534
-647,Revolution’s Heart Waypoint,535
-648,History’s End Waypoint,535
-649,Dalada Forest Waypoint,536
-650,Wardowns Waypoint,536
-651,Still Waters Speaking Waypoint,537
-652,Jora’s Keep Waypoint,537
-653,Daigo Ward Waypoint,538
-654,Promenade Waypoint,539
-655,Mori Village Waypoint,540
-656,Qinkai Waypoint,540
-657,Jade Quarry Waypoint,541
-658,Droknar’s Light Waypoint,542
-659,Tower Courtyard Waypoint,543
-660,Bastion of the Natural Waypoint,544
+PK_WaypointID,WaypointName,WaypointLink,FK_Waypoint_Map
+601,Swamplost Haven Waypoint,[&BPcAAAA=],501
+602,Claypool Waypoint,[&BPYAAAA=],501
+603,Provern Shore Waypoint,[&BOQAAAA=],502
+604,Cornucopian Fields Waypoint,[&BOMAAAA=],502
+605,Ascalon Settlement Waypoint,[&BI8BAAA=],502
+606,Cloven Hoof Waypoint,[&BLEAAAA=],503
+607,Trader’s Forum Waypoint,[&BBAEAAA=],504
+608,Firthside Vigil Waypoint,[&BKoBAAA=],505
+609,Laughing Gull Waypoint,[&BKgBAAA=],505
+610,Twilight Arbor Waypoint,[&BEEFAAA=],506
+611,Mabon Waypoint,[&BDoBAAA=],506
+612,Muridian Waypoint,[&BEcAAAA=],507
+613,Arterium Haven Waypoint,[&BEQAAAA=],507
+614,Splintered Coast Waypoint,[&BNABAAA=],508
+615,Maelstrom’s Waypoint,[&BM0CAAA=],509
+616,Old Sledge Site Waypoint,[&BNQCAAA=],509
+617,Vendrake’s Homestead Waypoint,[&BH4BAAA=],510
+618,Twinspur Haven Waypoint,[&BH0BAAA=],510
+619,Torstvedt Homestead Waypoint,[&BLsAAAA=],511
+620,Havfrue Basin Waypoint,[&BGMCAAA=],512
+621,Pinnacle Enclave Waypoint,[&BJgBAAA=],513
+622,Valance Tutory Waypoint,[&BEwCAAA=],514
+623,Earthshake Waypoint,[&BHoCAAA=],515
+624,Ashford Waypoint,[&BIQBAAA=],516
+625,Village of Scalecatch Waypoint,[&BOcBAAA=],517
+626,Lowland Burns Waypoint,[&BE4DAAA=],518
+627,Pearl Islet Waypoint,[&BNUGAAA=],519
+628,Bazaar Docks Waypoint,[&BBwHAAA=],520
+629,Eye of the North Waypoint,[&BAkMAAA=],521
+630,Dry Top Entry Waypoint,[&BIAHAAA=],522
+631,Pact Encampment Waypoint,[&BAgIAAA=],523
+632,Wanderer’s Waypoint,[&BNYHAAA=],524
+633,Ley-Line Confluence Waypoint,[&BPUHAAA=],525
+634,Pact Base Camp Waypoint,[&BBAIAAA=],526
+635,Red Leaf Retreat Waypoint,[&BK8JAAA=],527
+636,Doric's Landing Waypoint,[&BK0JAAA=],527
+637,Lakeside Bazaar Waypoint,[&BLQJAAA=],527
+638,Amnoon Waypoint,[&BLsKAAA=],528
+639,Makali Outpost Waypoint,[&BGsKAAA=],529
+640,Augury’s Shadow Waypoint,[&BFMKAAA=],530
+641,Lair of the Forgotten Waypoint,[&BMEKAAA=],531
+642,The Darklands Waypoint,[&BKMKAAA=],531
+643,Necropolis Waypoint,[&BEoKAAA=],532
+644,Market Ruins Waypoint,[&BHQKAAA=],532
+645,Chalon Docks Waypoint,[&BAkLAAA=],533
+646,Soul’s Vendetta Waypoint,[&BIMLAAA=],534
+647,Revolution’s Heart Waypoint,[&BKYLAAA=],535
+648,History’s End Waypoint,[&BLsLAAA=],535
+649,Dalada Forest Waypoint,[&BA4MAAA=],536
+650,Wardowns Waypoint,[&BPgLAAA=],536
+651,Still Waters Speaking Waypoint,[&BDkMAAA=],537
+652,Jora’s Keep Waypoint,[&BCcMAAA=],537
+653,Daigo Ward Waypoint,[&BGUNAAA=],538
+654,Promenade Waypoint,[&BMYMAAA=],539
+655,Mori Village Waypoint,[&BMcMAAA=],540
+656,Qinkai Waypoint,[&BNQMAAA=],540
+657,Jade Quarry Waypoint,[&BKIMAAA=],541
+658,Droknar’s Light Waypoint,[&BL4NAAA=],542
+659,Tower Courtyard Waypoint,[&BB8OAAA=],543
+660,Bastion of the Natural Waypoint,[&BDQOAAA=],544
