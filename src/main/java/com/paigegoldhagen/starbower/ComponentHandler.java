@@ -78,15 +78,16 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param tabbedPane            a collection of scroll pane components separated by tabs
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    static void populateTabbedPane(Connection databaseConnection, Queries sqlQueries, JTabbedPane tabbedPane) throws SQLException {
+    static void populateTabbedPane(Connection databaseConnection, Queries sqlQueries, JFrame frame, JTabbedPane tabbedPane) throws SQLException {
         List<Expansion> expansionList = QueryHandler.getExpansionList(databaseConnection, sqlQueries);
 
         for (Expansion expansion : expansionList) {
-            JPanel expansionPanel = createExpansionPanel(databaseConnection, sqlQueries, expansion.getID());
+            JPanel expansionPanel = createExpansionPanel(databaseConnection, sqlQueries, frame, expansion.getID());
             JScrollPane scrollPane = createScrollPane(expansionPanel);
 
             tabbedPane.add(expansion.getName(), scrollPane);
@@ -99,13 +100,14 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param expansionID           an Expansion ID to get related categories
      *
      * @return                      an Expansion panel containing Category panels
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static JPanel createExpansionPanel(Connection databaseConnection, Queries sqlQueries, Integer expansionID) throws SQLException {
-        List<JPanel> categoryPanelList = getCategoryPanelList(databaseConnection, sqlQueries, expansionID);
+    private static JPanel createExpansionPanel(Connection databaseConnection, Queries sqlQueries, JFrame frame, Integer expansionID) throws SQLException {
+        List<JPanel> categoryPanelList = getCategoryPanelList(databaseConnection, sqlQueries, frame, expansionID);
         return getExpansionPanel(categoryPanelList);
     }
 
@@ -186,16 +188,17 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param expansionID           an Expansion ID to get related categories
      *
      * @return                      a list of populated Category panels
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static List<JPanel> getCategoryPanelList(Connection databaseConnection, Queries sqlQueries, Integer expansionID) throws SQLException {
+    private static List<JPanel> getCategoryPanelList(Connection databaseConnection, Queries sqlQueries, JFrame frame, Integer expansionID) throws SQLException {
         List<JPanel> categoryPanelList = new ArrayList<>();
         List<JCheckBox> checkboxList = new ArrayList<>();
 
-        createCategoryPanels(databaseConnection, sqlQueries, expansionID, categoryPanelList, checkboxList);
+        createCategoryPanels(databaseConnection, sqlQueries, frame, expansionID, categoryPanelList, checkboxList);
         CheckboxHandler.addCheckboxListeners(databaseConnection, sqlQueries, checkboxList);
 
         return categoryPanelList;
@@ -208,26 +211,27 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param expansionID           an Expansion ID to get related categories
      * @param categoryPanelList     the list to add the Category panels
      * @param checkboxList          the list to add all created checkboxes
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static void createCategoryPanels(Connection databaseConnection, Queries sqlQueries, Integer expansionID, List<JPanel> categoryPanelList, List<JCheckBox> checkboxList) throws SQLException {
+    private static void createCategoryPanels(Connection databaseConnection, Queries sqlQueries, JFrame frame, Integer expansionID, List<JPanel> categoryPanelList, List<JCheckBox> checkboxList) throws SQLException {
         Integer lastExpansionID = QueryHandler.getLastExpansionID(databaseConnection, sqlQueries);
         List<Category> categoryList = QueryHandler.getCategoryList(databaseConnection, sqlQueries, expansionID);
 
         for (Category category : categoryList) {
             if (expansionID.equals(lastExpansionID)) {
                 JPanel festivalPanel = newPanel();
-                FestivalComponents.scheduleFestivalComponentUpdater(databaseConnection, sqlQueries, festivalPanel, checkboxList);
+                FestivalComponents.scheduleFestivalComponentUpdater(databaseConnection, sqlQueries, frame, festivalPanel, checkboxList);
                 categoryPanelList.add(festivalPanel);
                 break;
             }
             else {
                 JPanel categoryPanel = newPanel();
-                populateCategoryPanel(databaseConnection, sqlQueries, categoryPanel, checkboxList, category);
+                populateCategoryPanel(databaseConnection, sqlQueries, frame, categoryPanel, checkboxList, category);
                 categoryPanelList.add(categoryPanel);
             }
         }
@@ -239,13 +243,14 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param categoryPanel         the panel to add Category components, separator and DynamicEvent components
      * @param checkboxList          a list to add all created checkboxes
      * @param category              a class for retrieving Category information
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static void populateCategoryPanel(Connection databaseConnection, Queries sqlQueries, JPanel categoryPanel, List<JCheckBox> checkboxList, Category category) throws SQLException {
+    private static void populateCategoryPanel(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel categoryPanel, List<JCheckBox> checkboxList, Category category) throws SQLException {
         GridBagConstraints layout = new GridBagConstraints();
         LayoutHandler.setCategoryPanelLayout(layout);
 
@@ -260,7 +265,7 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
         addSeparator(categoryPanel, layout, rowCount);
         rowCount += 1;
 
-        addDynamicEventComponents(databaseConnection, sqlQueries, categoryPanel, checkboxList, layout, rowCount, categoryID, categoryName);
+        addDynamicEventComponents(databaseConnection, sqlQueries, frame, categoryPanel, checkboxList, layout, rowCount, categoryID, categoryName);
     }
 
     /**
@@ -369,10 +374,11 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
 
     /**
      * Update the Category panel layout and get the DynamicEvents associated with a Category ID.
-     * For each DynamicEvent, determine the DynamicEvent name and location and create a DynamicEvent checkbox and location label.
+     * For each DynamicEvent, determine the DynamicEvent name and location and create a DynamicEvent checkbox and location button.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      * @param categoryPanel         the panel to add DynamicEvent components
      * @param checkboxList          a list to add all created checkboxes
      * @param layout                a class for setting visual constraints for GUI components
@@ -382,7 +388,7 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static void addDynamicEventComponents(Connection databaseConnection, Queries sqlQueries, JPanel categoryPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, Integer categoryID, String categoryName) throws SQLException {
+    private static void addDynamicEventComponents(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel categoryPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, Integer categoryID, String categoryName) throws SQLException {
         LayoutHandler.updateCategoryPanelLayout(layout);
         int startRow = rowCount;
 
@@ -392,6 +398,8 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
             String dynamicEventName = dynamicEvent.getName();
             String mapName = dynamicEvent.getMapName();
             String waypointName = dynamicEvent.getWaypointName();
+            String waypointLink = dynamicEvent.getWaypointLink();
+            String tooltipText = "Copy Waypoint link";
 
             String dynamicEventLocation = mapName;
 
@@ -402,9 +410,14 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
             else if (mapName.equals(categoryName)) {
                 dynamicEventLocation = waypointName;
             }
+
+            if (dynamicEventLocation.equals(mapName)) {
+                tooltipText = "Copy nearest Waypoint link";
+            }
+
             addDynamicEventCheckbox(categoryPanel, checkboxList, layout, rowCount, dynamicEventName, dynamicEvent.getNotifyStateID(), dynamicEvent.getNotifyStateEnabled());
             rowCount += 1;
-            addLocationLabel(categoryPanel, layout, startRow, dynamicEventLocation);
+            addLocationButton(frame, categoryPanel, layout, startRow, dynamicEventLocation, waypointLink, tooltipText);
             startRow += 1;
         }
     }
@@ -446,30 +459,42 @@ public interface ComponentHandler extends LayoutHandler, QueryHandler {
     }
 
     /**
-     * Create a location label with the DynamicEvent location string, set the location label layout,
-     * and add the label to the Category panel.
+     * Create a location button using the DynamicEvent location, waypoint link, and tooltip text.
+     * Add listeners to the button, set the button layout, and add the button to the Category panel.
      *
-     * @param categoryPanel         the panel to add the location label
+     * @param frame                 the visual window for GUI components
+     * @param categoryPanel         the panel to add the button
      * @param layout                a class for setting visual constraints for GUI components
-     * @param startRow              the current row within the layout
-     * @param dynamicEventLocation  the location string of a DynamicEvent
+     * @param startRow              the starting row within the layout
+     * @param dynamicEventLocation  the Map name or Waypoint name string
+     * @param waypointLink          the Waypoint chat link string
+     * @param tooltipText           the tooltip text string for the button
      */
-    static void addLocationLabel(JPanel categoryPanel, GridBagConstraints layout, Integer startRow, String dynamicEventLocation) {
-        JLabel locationLabel = createLocationLabel(dynamicEventLocation);
-        LayoutHandler.setLocationLabelLayout(layout, startRow);
-        categoryPanel.add(locationLabel, layout);
+    static void addLocationButton(JFrame frame, JPanel categoryPanel, GridBagConstraints layout, Integer startRow, String dynamicEventLocation, String waypointLink, String tooltipText) {
+        JButton locationButton = createLocationButton(dynamicEventLocation, waypointLink, tooltipText);
+        ButtonHandler.addLocationButtonListeners(frame, locationButton);
+
+        LayoutHandler.setLocationButtonLayout(layout, startRow);
+        categoryPanel.add(locationButton, layout);
     }
 
     /**
-     * Create a location label with the DynamicEvent location as the text and set the horizontal alignment of the label text.
+     * Create a location button using the DynamicEvent location.
+     * Set the button name as the Waypoint link string and set the tooltip text.
+     * Set the horizontal alignment of the button contents.
      *
-     * @param dynamicEventLocation  the location string of a DynamicEvent
-     * @return                      a populated location label
+     * @param dynamicEventLocation  the Map name or Waypoint name string
+     * @param waypointLink          the Waypoint chat link string
+     * @param tooltipText           the tooltip text string for the button
+     *
+     * @return                      a populated location button
      */
-    private static JLabel createLocationLabel(String dynamicEventLocation) {
-        JLabel locationLabel = new JLabel(dynamicEventLocation);
-        locationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        return locationLabel;
+    private static JButton createLocationButton(String dynamicEventLocation, String waypointLink, String tooltipText) {
+        JButton locationButton = new JButton(dynamicEventLocation);
+        locationButton.setName(waypointLink);
+        locationButton.setToolTipText(tooltipText);
+        locationButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        return locationButton;
     }
 
     /**

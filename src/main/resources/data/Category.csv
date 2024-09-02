@@ -28,9 +28,10 @@ PK_CategoryID,CategoryName,FK_Category_NotifyState,FK_Category_Expansion
 327,Skywatch Archipelago,,209
 328,The Wizard’s Tower,117,209
 329,Amnytas,,209
-330,Lunar New Year,,210
-331,Super Adventure Festival,,210
-332,Dragon Bash,118,210
-333,Festival of the Four Winds,119,210
-334,Halloween,,210
-335,Wintersday,,210
+330,Janthir Syntri,,210
+331,Lunar New Year,,211
+332,Super Adventure Festival,,211
+333,Dragon Bash,118,211
+334,Festival of the Four Winds,119,211
+335,Halloween,,211
+336,Wintersday,,211

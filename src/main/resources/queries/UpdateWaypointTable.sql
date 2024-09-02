@@ -1,1 +1,0 @@
-UPDATE Waypoint w SET w.WaypointName = (SELECT TOP 1 t.WaypointName FROM TEMP_Waypoint t WHERE t.PK_WaypointID = w.PK_WaypointID), w.WaypointLink = (SELECT TOP 1 t.WaypointLink FROM TEMP_Waypoint t WHERE t.PK_WaypointID = w.PK_WaypointID);

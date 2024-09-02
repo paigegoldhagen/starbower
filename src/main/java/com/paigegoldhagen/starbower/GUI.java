@@ -28,7 +28,7 @@ public class GUI implements ComponentHandler {
         JFrame frame = initialiseFrame(databaseConnection, sqlQueries, windowsRegistry, appIconList);
 
         JPanel topPanel = getTopPanel(windowsRegistry, dropdownList, frame);
-        JTabbedPane tabbedPane = getTabbedPane(databaseConnection, sqlQueries);
+        JTabbedPane tabbedPane = getTabbedPane(databaseConnection, sqlQueries, frame);
 
         ComponentHandler.addComponentsToFrame(frame, topPanel, tabbedPane);
 
@@ -77,7 +77,7 @@ public class GUI implements ComponentHandler {
      * @param frame         the frame to customise
      */
     private static void setFrameVisualsAndBehaviour(List<Image> appIconList, JFrame frame) {
-        frame.setSize(820, 740);
+        frame.setSize(820, 805);
         frame.setLayout(new GridBagLayout());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
@@ -207,14 +207,15 @@ public class GUI implements ComponentHandler {
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param frame                 the visual window for GUI components
      *
      * @return                      the populated tabbed pane
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static JTabbedPane getTabbedPane(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+    private static JTabbedPane getTabbedPane(Connection databaseConnection, Queries sqlQueries, JFrame frame) throws SQLException {
         JTabbedPane tabbedPane = new JTabbedPane();
         setTabbedPaneVisuals(tabbedPane);
-        ComponentHandler.populateTabbedPane(databaseConnection, sqlQueries, tabbedPane);
+        ComponentHandler.populateTabbedPane(databaseConnection, sqlQueries, frame, tabbedPane);
 
         return tabbedPane;
     }

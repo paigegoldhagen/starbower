@@ -44,6 +44,46 @@ public class ResourceHandler {
     }
 
     /**
+     * Get the current version name of Starbower from the Version CSV.
+     *
+     * @return              the current version name string
+     * @throws IOException  a resource folder/file could not be found or read
+     */
+    public static String getCurrentVersionName() throws IOException {
+        String currentVersionName = null;
+        
+        BufferedReader textReader = FileHandler.getTextReader("init/VersionData.csv");
+        String line = textReader.readLine();
+        
+        while (line != null) {
+            currentVersionName = line;
+            line = textReader.readLine();
+        }
+        
+        return currentVersionName;
+    }
+
+    /**
+     * Get a list of user-created (or creatable) table names for the database from the TableNames CSV.
+     *
+     * @return              a list of table name strings
+     * @throws IOException  a resource folder/file could not be found or read
+     */
+    public static List<String> getExistingTableNames() throws IOException {
+        List<String> existingTableNameList = new ArrayList<>();
+
+        BufferedReader textReader = FileHandler.getTextReader("init/TableNames.csv");
+        String line = textReader.readLine();
+
+        while (line != null) {
+            existingTableNameList.add(line);
+            line = textReader.readLine();
+        }
+
+        return existingTableNameList;
+    }
+
+    /**
      * Get the URL of the data folder as a string and build a query string
      * using the URL and a text reader of the query file.
      *

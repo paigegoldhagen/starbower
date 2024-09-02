@@ -1,0 +1,1 @@
+SELECT WaypointName, WaypointLink FROM Waypoint WHERE PK_WaypointID = ?;

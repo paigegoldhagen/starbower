@@ -1,1 +1,0 @@
-SELECT * FROM Festival_TEMP;

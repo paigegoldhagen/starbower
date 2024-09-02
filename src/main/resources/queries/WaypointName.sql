@@ -1,1 +1,0 @@
-SELECT WaypointName FROM Waypoint WHERE PK_WaypointID = ?;

@@ -17,9 +17,9 @@ PK_WaypointID,WaypointName,WaypointLink,FK_Waypoint_Map
 616,Old Sledge Site Waypoint,[&BNQCAAA=],509
 617,Vendrake’s Homestead Waypoint,[&BH4BAAA=],510
 618,Twinspur Haven Waypoint,[&BH0BAAA=],510
-619,Torstvedt Homestead Waypoint,[&BLsAAAA=],511
+619,Soderhem Steading Waypoint,[&BL4AAAA=],511
 620,Havfrue Basin Waypoint,[&BGMCAAA=],512
-621,Pinnacle Enclave Waypoint,[&BJgBAAA=],513
+621,Mistriven Waypoint,[&BJkBAAA=],513
 622,Valance Tutory Waypoint,[&BEwCAAA=],514
 623,Earthshake Waypoint,[&BHoCAAA=],515
 624,Ashford Waypoint,[&BIQBAAA=],516
@@ -59,3 +59,4 @@ PK_WaypointID,WaypointName,WaypointLink,FK_Waypoint_Map
 658,Droknar’s Light Waypoint,[&BL4NAAA=],542
 659,Tower Courtyard Waypoint,[&BB8OAAA=],543
 660,Bastion of the Natural Waypoint,[&BDQOAAA=],544
+661,Forager’s Hunt Waypoint,[&BLcOAAA=],545

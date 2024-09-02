@@ -16,6 +16,56 @@ import java.util.prefs.Preferences;
  */
 public interface QueryHandler extends QueryExecutor {
     /**
+     * Get a list of all the table names in the database.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     *
+     * @return                      a list of all table names as strings
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static List<String> getTableNames(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        List<String> tableNameList = new ArrayList<>();
+
+        ResultSet tableNames = QueryExecutor.getBasicResultSet(databaseConnection, sqlQueries, "TableNames");
+
+        while (tableNames.next()) {
+            tableNameList.add(tableNames.getString("TABLE_NAME"));
+        }
+        return tableNameList;
+    }
+
+    /**
+     * Get the current database version name from the Version table.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     *
+     * @return                      the version name string
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static String getVersionName(Connection databaseConnection, Queries sqlQueries) throws SQLException {
+        ResultSet versionName = QueryExecutor.getBasicResultSet(databaseConnection, sqlQueries, "Version");
+        versionName.next();
+        return versionName.getString("VersionName");
+    }
+
+    /**
+     * Drop the tables specified in a list of table names.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param tableNameList         the list of table names to drop
+     *
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    static void dropTables(Connection databaseConnection, Queries sqlQueries, List<String> tableNameList) throws SQLException {
+        for (String tableName : tableNameList) {
+            QueryExecutor.dropTable(databaseConnection, sqlQueries, tableName);
+        }
+    }
+
+    /**
      * Create the database tables.
      *
      * @param databaseConnection    the connection to the Starbower relational database
@@ -25,20 +75,6 @@ public interface QueryHandler extends QueryExecutor {
      */
     static void createTables(Connection databaseConnection, Queries sqlQueries) throws SQLException {
         QueryExecutor.createTables(databaseConnection, sqlQueries);
-    }
-
-    /**
-     * Add a new column to the Waypoint table if it doesn't exist
-     * and update table data using the TEMP tables.
-     *
-     * @param databaseConnection    the connection to the Starbower relational database
-     * @param sqlQueries            a class for retrieving SQL query strings
-     *
-     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
-     */
-    static void updateTables(Connection databaseConnection, Queries sqlQueries) throws SQLException {
-        QueryExecutor.addColumnToWaypointTable(databaseConnection, sqlQueries);
-        QueryExecutor.updateTablesFromTempTables(databaseConnection, sqlQueries);
     }
 
     /**
@@ -475,12 +511,12 @@ public interface QueryHandler extends QueryExecutor {
             ResultSet notifyStateEnabled = QueryExecutor.getSpecificResultSet(databaseConnection, sqlQueries, "NotifyStateEnabled", notifyStateID);
             notifyStateEnabled.next();
 
-            ResultSet waypointName = QueryExecutor.getSpecificResultSet(databaseConnection, sqlQueries, "WaypointName", waypointID);
-            waypointName.next();
-
             String mapName = getMapName(databaseConnection, sqlQueries, waypointID);
 
-            DynamicEvent dynamicEvent = new DynamicEvent(dynamicEventName, notifyStateID, notifyStateEnabled.getBoolean("NotifyStateEnabled"), mapName, waypointName.getString("WaypointName"));
+            ResultSet waypoint = QueryExecutor.getSpecificResultSet(databaseConnection, sqlQueries, "Waypoint", waypointID);
+            waypoint.next();
+
+            DynamicEvent dynamicEvent = new DynamicEvent(dynamicEventName, notifyStateID, notifyStateEnabled.getBoolean("NotifyStateEnabled"), mapName, waypoint.getString("WaypointName"), waypoint.getString("WaypointLink"));
             dynamicEventList.add(dynamicEvent);
         }
         return dynamicEventList;

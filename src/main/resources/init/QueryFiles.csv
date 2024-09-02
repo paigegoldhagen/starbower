@@ -1,8 +1,8 @@
-AddWaypointTableColumn.sql
 Categories.sql
 CategoryID.sql
 CategoryNotifyStateIDs.sql
 CreateTables.sql
+DropTable.sql
 DynamicEvent.sql
 DynamicEventID.sql
 DynamicEvents.sql
@@ -12,7 +12,6 @@ Expansions.sql
 FestivalCategory.sql
 Festivals.sql
 FestivalStartDates.sql
-FestivalsTemp.sql
 LastExpansion.sql
 MapID.sql
 MapName.sql
@@ -23,8 +22,8 @@ NotifyStates.sql
 RotationalCategoryID.sql
 RotationalScheduleIDs.sql
 Schedule.sql
-UpdateFestivalTable.sql
+TableNames.sql
 UpdateNotifyStateEnabled.sql
 UpdateScheduleTime.sql
-UpdateWaypointTable.sql
-WaypointName.sql
+Version.sql
+Waypoint.sql

@@ -12,9 +12,9 @@ import java.util.prefs.Preferences;
  */
 public class Starbower {
     /**
-     * Get the SQL queries from the ResourceHandler and get the user preferences from the Windows Registry.
-     * Get the database connection and populate the database using the DatabaseHandler.
-     * Get the AppImages and Dropdown list for the GUI and sending notifications.
+     * Get the database queries, database connection, and Windows Registry user preferences.
+     * Populate the database.
+     * Get the app images and dropdown list from the ResourceHandler.
      * Initialise the GUI and prepare notifications.
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
@@ -24,16 +24,32 @@ public class Starbower {
      */
     public static void main(String[] args) throws SQLException, IOException, AWTException, FontFormatException {
         Queries sqlQueries = ResourceHandler.getDatabaseQueries();
+        Connection databaseConnection = DatabaseHandler.getDatabaseConnection();
         Preferences windowsRegistry = Preferences.userNodeForPackage(Starbower.class);
 
-        Connection databaseConnection = DatabaseHandler.getDatabaseConnection();
-        DatabaseHandler.populateDatabase(databaseConnection, sqlQueries, windowsRegistry);
+        populateDatabase(databaseConnection, sqlQueries, windowsRegistry);
 
         AppImages appImages = ResourceHandler.getAppImages();
         List<Dropdown> dropdownList = ResourceHandler.getDropdownList();
 
         initialiseGUI(databaseConnection, sqlQueries, windowsRegistry, appImages.getAppIconList(), dropdownList);
         prepareNotifications(databaseConnection, sqlQueries, windowsRegistry, appImages.getTrayImage(), dropdownList);
+    }
+
+    /**
+     * Populate the database based on the current version of Starbower and the existing table names.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param windowsRegistry       the user preferences for Starbower in the Windows Registry
+     *
+     * @throws IOException          a resource folder/file could not be found or read
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    private static void populateDatabase(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry) throws IOException, SQLException {
+        String currentVersionName = ResourceHandler.getCurrentVersionName();
+        List<String> existingTableNameList = ResourceHandler.getExistingTableNames();
+        DatabaseHandler.populateDatabase(databaseConnection, sqlQueries, currentVersionName, existingTableNameList, windowsRegistry);
     }
 
     /**

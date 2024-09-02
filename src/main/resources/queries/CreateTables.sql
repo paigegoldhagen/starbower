@@ -47,17 +47,6 @@ CREATE TABLE IF NOT EXISTS Waypoint (
 )
 AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Waypoint.csv');
 
-CREATE TEMP TABLE TEMP_Waypoint (
-    PK_WaypointID INT PRIMARY KEY,
-    WaypointName NVARCHAR(50) NOT NULL,
-    WaypointLink NVARCHAR(50) NOT NULL,
-    FK_Waypoint_Map INT NOT NULL,
-
-    FOREIGN KEY (FK_Waypoint_Map)
-    REFERENCES Map(PK_MapID)
-)
-AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Waypoint.csv');
-
 CREATE TABLE IF NOT EXISTS DynamicEvent (
 	PK_DynamicEventID INT PRIMARY KEY,
 	DynamicEventName NVARCHAR(50) NOT NULL,
@@ -101,12 +90,8 @@ CREATE TABLE IF NOT EXISTS Festival (
 )
 AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Festival.csv');
 
-CREATE TEMP TABLE TEMP_Festival (
-	FK_Festival_Category INT NOT NULL,
-	FestivalStart TIMESTAMP NOT NULL,
-	FestivalEnd TIMESTAMP NOT NULL,
-
-	FOREIGN KEY (FK_Festival_Category)
-	REFERENCES Category(PK_CategoryID)
+CREATE TABLE IF NOT EXISTS Version (
+	PK_VersionID INT PRIMARY KEY,
+	VersionName NVARCHAR(50) NOT NULL
 )
-AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Festival.csv');
+AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Version.csv');

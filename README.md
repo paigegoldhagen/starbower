@@ -11,30 +11,12 @@ Download the [latest version of Starbower](https://github.com/paigegoldhagen/sta
 
 <br>
 
-## What's new in Version 1.4.0
-Starbower has a shiny new name, and with it, a completely redesigned backend! The scope of the project has grown from a semi-structured data seedling into a relational database sapling :)
-+ App name changed from Astral to Starbower
-+ New app icon
-+ New GUI colour scheme and fonts
-+ New SQL database backend
-+ Added Awakened Invasion event
-+ Adjusted notification reminder time choices
-
-<br>
-
-Version 1.4.1
-+ Added code for updating the Festival table with current festival start and end dates
-
-<br>
-
-Version 1.4.2
-+ New dark theme
-
-<br>
-
-Version 1.4.3
-+ Corrected name of *Havfrue Basin Waypoint*
-+ Fixed an issue that prevented the customisation of Festival event notifications
+## What's new in Version 1.5.0
+Janthir Wilds is here! The exciting new expansion happily coincides with Starbower's 1.5 update, complete with added events and a shiny new Waypoint copy functionality. Simply click a location, and the Waypoint (or nearest Waypoint) chat link will be copied to your clipboard.
++ Location labels are now clickable, copying the Waypoint chat link to your clipboard
++ Changed Hologram Stampede Waypoints to reflect in-game suggested Waypoints
++ Added Water Balloons event to the Festival of the Four Winds
++ Added new tab for Janthir Wilds and the *Of Mists and Monsters* meta event
 
 <br>
 
@@ -53,7 +35,7 @@ When playing in fullscreen mode, notifications may be suppressed by do not distu
 ## Upcoming features
 - [ ] Windows native executable for future releases
 - [x] Dark mode option ✨ Added in Version 1.4.2! ✨
-- [ ] Waypoint button to copy the chat link to the clipboard
+- [x] Waypoint button to copy the chat link to the clipboard ✨ Added in Version 1.5.0! ✨
 
 <br>
 

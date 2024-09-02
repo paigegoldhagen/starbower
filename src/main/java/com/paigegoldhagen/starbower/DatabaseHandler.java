@@ -23,17 +23,53 @@ public class DatabaseHandler implements QueryHandler {
     }
 
     /**
-     * Create and update the database tables and restore saved preferences from the Windows Registry.
+     * Populate the database depending on the existence of a database and/or the database version.
      *
      * @param databaseConnection    the connection to the Starbower relational database
      * @param sqlQueries            a class for retrieving SQL query strings
+     * @param currentVersionName    the current version name of Starbower
+     * @param existingTableNameList a list of user-created table names
      * @param windowsRegistry       the user preferences for Starbower in the Windows Registry
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    public static void populateDatabase(Connection databaseConnection, Queries sqlQueries, Preferences windowsRegistry) throws SQLException {
+    public static void populateDatabase(Connection databaseConnection, Queries sqlQueries, String currentVersionName, List<String> existingTableNameList, Preferences windowsRegistry) throws SQLException {
+        String versionTableName = "Version";
+
+        List<String> tableNameList = QueryHandler.getTableNames(databaseConnection, sqlQueries);
+
+        if (!tableNameList.contains(existingTableNameList.getFirst().toUpperCase())) {
+            QueryHandler.createTables(databaseConnection, sqlQueries);
+            restoreSavedPreferences(databaseConnection, sqlQueries, windowsRegistry);
+        }
+        else {
+            if (!tableNameList.contains(versionTableName.toUpperCase())) {
+                existingTableNameList.remove(versionTableName);
+                refreshDatabaseTables(databaseConnection, sqlQueries, existingTableNameList, windowsRegistry);
+            }
+            else {
+                String versionName = QueryHandler.getVersionName(databaseConnection, sqlQueries);
+
+                if (!versionName.equals(currentVersionName)) {
+                    refreshDatabaseTables(databaseConnection, sqlQueries, existingTableNameList, windowsRegistry);
+                }
+            }
+        }
+    }
+
+    /**
+     * Drop the user-created tables, create newest up-to-date tables, and restore any saved user preferences.
+     *
+     * @param databaseConnection    the connection to the Starbower relational database
+     * @param sqlQueries            a class for retrieving SQL query strings
+     * @param existingTableNameList the list of user-created table names
+     * @param windowsRegistry       the user preferences for Starbower in the Windows Registry
+     *
+     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
+     */
+    private static void refreshDatabaseTables(Connection databaseConnection, Queries sqlQueries, List<String> existingTableNameList, Preferences windowsRegistry) throws SQLException {
+        QueryHandler.dropTables(databaseConnection, sqlQueries, existingTableNameList);
         QueryHandler.createTables(databaseConnection, sqlQueries);
-        QueryHandler.updateTables(databaseConnection, sqlQueries);
         restoreSavedPreferences(databaseConnection, sqlQueries, windowsRegistry);
     }
 

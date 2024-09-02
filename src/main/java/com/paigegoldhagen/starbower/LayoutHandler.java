@@ -170,12 +170,12 @@ public interface LayoutHandler {
     }
 
     /**
-     * Set the location label anchor, X/Y grid position and Y weight.
+     * Set the location button anchor, X/Y grid positions and Y weight position.
      *
      * @param layout    a class for setting visual constraints for GUI components
-     * @param startRow  the current row within the layout
+     * @param startRow  the starting row within the layout
      */
-    static void setLocationLabelLayout(GridBagConstraints layout, Integer startRow) {
+    static void setLocationButtonLayout(GridBagConstraints layout, Integer startRow) {
         layout.anchor = GridBagConstraints.EAST;
         layout.gridx = 1;
         layout.gridy = startRow;

@@ -24,8 +24,8 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      * @param festivalPanel         the panel to add Festival components
      * @param checkboxList          a list to manage all created checkboxes
      */
-    public static void scheduleFestivalComponentUpdater(Connection databaseConnection, Queries sqlQueries, JPanel festivalPanel, List<JCheckBox> checkboxList) {
-        Runnable updateFestivalComponents = updateFestivalComponents(databaseConnection, sqlQueries, festivalPanel, checkboxList);
+    public static void scheduleFestivalComponentUpdater(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList) {
+        Runnable updateFestivalComponents = updateFestivalComponents(databaseConnection, sqlQueries, frame, festivalPanel, checkboxList);
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
         executorService.scheduleAtFixedRate(updateFestivalComponents, 0, 1, TimeUnit.MINUTES);
     }
@@ -42,12 +42,12 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      *
      * @return                      the methods to run
      */
-    private static Runnable updateFestivalComponents(Connection databaseConnection, Queries sqlQueries, JPanel festivalPanel, List<JCheckBox> checkboxList) {
+    private static Runnable updateFestivalComponents(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList) {
         return () -> {
             removeOutOfDateComponents(festivalPanel, checkboxList);
 
             try {
-                populateFestivalPanel(databaseConnection, sqlQueries, festivalPanel, checkboxList);
+                populateFestivalPanel(databaseConnection, sqlQueries, frame, festivalPanel, checkboxList);
                 ComponentHandler.addCheckboxListeners(databaseConnection, sqlQueries, checkboxList);
             }
             catch (SQLException e) {
@@ -98,7 +98,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static void populateFestivalPanel(Connection databaseConnection, Queries sqlQueries, JPanel festivalPanel, List<JCheckBox> checkboxList) throws SQLException {
+    private static void populateFestivalPanel(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList) throws SQLException {
         LocalDateTime utcDate = getUtcDate();
 
         List<Festival> festivalList = QueryHandler.getFestivalList(databaseConnection, sqlQueries, utcDate);
@@ -116,7 +116,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
                 List<DynamicEvent> dynamicEventList = festival.getDynamicEventList();
 
                 if (!dynamicEventList.isEmpty()) {
-                    addDynamicEventComponents(databaseConnection, sqlQueries, festivalPanel, checkboxList, rowCount, festival, dynamicEventList);
+                    addDynamicEventComponents(databaseConnection, sqlQueries, frame, festivalPanel, checkboxList, rowCount, festival, dynamicEventList);
                 }
                 break;
             }
@@ -141,7 +141,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      *
      * @throws SQLException         the database could not be accessed or the table/column/row could not be found
      */
-    private static void addDynamicEventComponents(Connection databaseConnection, Queries sqlQueries, JPanel festivalPanel, List<JCheckBox> checkboxList, Integer rowCount, Festival festival, List<DynamicEvent> dynamicEventList) throws SQLException {
+    private static void addDynamicEventComponents(Connection databaseConnection, Queries sqlQueries, JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList, Integer rowCount, Festival festival, List<DynamicEvent> dynamicEventList) throws SQLException {
         GridBagConstraints layout = new GridBagConstraints();
         rowCount += 2;
         ComponentHandler.updateCategoryPanelLayout(layout);
@@ -150,14 +150,14 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
         String firstDynamicEventName = firstDynamicEvent.getName();
 
         if (dynamicEventList.size() == 1) {
-            addSingularDynamicEventComponents(festivalPanel, checkboxList, layout, rowCount, firstDynamicEventName, firstDynamicEvent.getNotifyStateID(), firstDynamicEvent.getNotifyStateEnabled(), firstDynamicEvent.getMapName());
+            addSingularDynamicEventComponents(frame, festivalPanel, checkboxList, layout, rowCount, firstDynamicEventName, firstDynamicEvent.getNotifyStateID(), firstDynamicEvent.getNotifyStateEnabled(), firstDynamicEvent.getMapName(), firstDynamicEvent.getWaypointLink(), "Copy nearest Waypoint");
         }
         else {
             String categoryName = getCategoryName(festival.getName(), dynamicEventList, dynamicEventList.getFirst().getName());
             addCategoryCheckbox(databaseConnection, sqlQueries, festivalPanel, checkboxList, layout, rowCount, festival.getCategoryID(), categoryName);
 
             rowCount += 1;
-            addMultiDynamicEventComponents(festivalPanel, checkboxList, layout, rowCount, categoryName, dynamicEventList);
+            addMultiDynamicEventComponents(frame, festivalPanel, checkboxList, layout, rowCount, categoryName, dynamicEventList);
         }
     }
 
@@ -199,7 +199,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      * @param categoryName      the Festival name string
      * @param dynamicEventList  a list of Festival DynamicEvents
      */
-    private static void addMultiDynamicEventComponents(JPanel festivalPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, String categoryName, List<DynamicEvent> dynamicEventList) {
+    private static void addMultiDynamicEventComponents(JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, String categoryName, List<DynamicEvent> dynamicEventList) {
         rowCount += 2;
         int startRow = rowCount;
 
@@ -208,7 +208,7 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
 
             ComponentHandler.addDynamicEventCheckbox(festivalPanel, checkboxList, layout, rowCount, dynamicEventName, dynamicEvent.getNotifyStateID(), dynamicEvent.getNotifyStateEnabled());
             rowCount += 1;
-            ComponentHandler.addLocationLabel(festivalPanel, layout, startRow, dynamicEvent.getWaypointName());
+            ComponentHandler.addLocationButton(frame, festivalPanel, layout, startRow, dynamicEvent.getWaypointName(), dynamicEvent.getWaypointLink(), "Copy Waypoint");
             startRow += 1;
         }
     }
@@ -287,12 +287,12 @@ public class FestivalComponents implements ComponentHandler, QueryHandler {
      * @param dynamicEventNotifyStateEnabled    the NotifyState enabled boolean
      * @param dynamicEventMapName               the map name string
      */
-    private static void addSingularDynamicEventComponents(JPanel festivalPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, String dynamicEventName, Integer dynamicEventNotifyStateID, Boolean dynamicEventNotifyStateEnabled, String dynamicEventMapName) {
+    private static void addSingularDynamicEventComponents(JFrame frame, JPanel festivalPanel, List<JCheckBox> checkboxList, GridBagConstraints layout, Integer rowCount, String dynamicEventName, Integer dynamicEventNotifyStateID, Boolean dynamicEventNotifyStateEnabled, String dynamicEventMapName, String waypointLink, String tooltipText) {
         rowCount += 1;
         int startRow = rowCount;
 
         ComponentHandler.addDynamicEventCheckbox(festivalPanel, checkboxList, layout, rowCount, dynamicEventName, dynamicEventNotifyStateID, dynamicEventNotifyStateEnabled);
-        ComponentHandler.addLocationLabel(festivalPanel, layout, startRow, dynamicEventMapName);
+        ComponentHandler.addLocationButton(frame, festivalPanel, layout, startRow, dynamicEventMapName, waypointLink, tooltipText);
     }
 
     /**

@@ -2,13 +2,18 @@ package com.paigegoldhagen.starbower;
 
 import java.sql.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Interface handling the preparation and execution of SQL queries to the database.
  */
 public interface QueryExecutor {
+    static void dropTable(Connection databaseConnection, Queries sqlQueries, String tableName) throws SQLException {
+        String queryString = sqlQueries.getQueryString("DropTable");
+        queryString = queryString.replace("?", tableName);
+        Statement sqlStatement = databaseConnection.createStatement();
+        sqlStatement.execute(queryString);
+    }
+
     /**
      * Get the CreateTables query string and execute the SQL statement.
      *
@@ -21,41 +26,6 @@ public interface QueryExecutor {
         String queryString = sqlQueries.getQueryString("CreateTables");
         Statement sqlStatement = databaseConnection.createStatement();
         sqlStatement.execute(queryString);
-    }
-
-    /**
-     * Get the AddTableColumn query string and execute the SQL statement.
-     *
-     * @param databaseConnection    the connection to the Starbower relational database
-     * @param sqlQueries            a class for retrieving SQL query strings
-     *
-     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
-     */
-    static void addColumnToWaypointTable(Connection databaseConnection, Queries sqlQueries) throws SQLException {
-        String queryString = sqlQueries.getQueryString("AddWaypointTableColumn");
-        PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
-        preparedStatement.executeUpdate();
-    }
-
-    /**
-     * Get the query string for each table needing to be updated
-     * and execute the prepared SQL statement.
-     *
-     * @param databaseConnection    the connection to the Starbower relational database
-     * @param sqlQueries            a class for retrieving SQL query strings
-     *
-     * @throws SQLException         the database could not be accessed or the table/column/row could not be found
-     */
-    static void updateTablesFromTempTables(Connection databaseConnection, Queries sqlQueries) throws SQLException {
-        List<String> tableNameList = new ArrayList<>(List.of(new String[]{"Festival", "Waypoint"}));
-
-        for (String tableName : tableNameList) {
-            String queryName = String.format("Update%sTable", tableName);
-            String queryString = sqlQueries.getQueryString(queryName);
-
-            PreparedStatement preparedStatement = databaseConnection.prepareStatement(queryString);
-            preparedStatement.executeUpdate();
-        }
     }
 
     /**
