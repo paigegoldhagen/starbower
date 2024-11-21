@@ -64,17 +64,18 @@ PK_DynamicEventID,DynamicEventName,FK_DynamicEvent_NotifyState,FK_DynamicEvent_C
 763,Unlocking the Wizard’s Tower,182,327,401,658
 764,Target Practice,183,328,403,659
 765,Fly by Night,184,328,403,659
-766,Defense of Amnytas,185,329,405,660
+766,Defense of Amnytas,185,329,401,660
 767,Convergences,186,328,406,659
-768,Of Mists and Monsters,187,330,401,661
-769,Hologram Stampede,188,333,405,618
-770,Hologram Stampede,189,333,405,620
-771,Hologram Stampede,190,333,405,621
-772,Hologram Stampede,191,333,405,619
-773,Labyrithine Skiffs,192,334,404,628
-774,Water Balloons,193,334,401,628
-775,Treasure Hunt,194,334,401,628
-776,Skimmer Slalom,195,334,404,628
-777,Fishing Tournament,196,334,401,628
-778,Flying Dolyak,197,334,404,628
-779,Mad King Says,198,335,401,607
+768,Of Mists and Monsters,187,330,401,662
+769,Convergences,188,331,406,661
+770,Hologram Stampede,189,334,405,618
+771,Hologram Stampede,190,334,405,620
+772,Hologram Stampede,191,334,405,621
+773,Hologram Stampede,192,334,405,619
+774,Labyrithine Skiffs,193,335,404,628
+775,Water Balloons,194,335,401,628
+776,Treasure Hunt,195,335,401,628
+777,Skimmer Slalom,196,335,404,628
+778,Fishing Tournament,197,335,401,628
+779,Flying Dolyak,198,335,404,628
+780,Mad King Says,199,336,401,607

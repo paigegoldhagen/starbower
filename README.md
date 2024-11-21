@@ -20,6 +20,11 @@ Janthir Wilds is here! The exciting new expansion happily coincides with Starbow
 
 <br>
 
+Version 1.5.1
++ Added Mount Balrior Convergence event
+
+<br>
+
 ## Troubleshooting
 ### Notifications not working
 When playing in fullscreen mode, notifications may be suppressed by do not disturb settings. On Windows 11, go to `Settings > System > Notifications > Turn on do not disturb automatically` and uncheck the following:

@@ -1,7 +1,7 @@
-PK_KindID,KindName
-401,Meta Event
-402,World Boss
-403,Adventure
-404,Race
-405,Map Specific
-406,Convergence
+PK_KindID,KindName,KindMessage
+401,Meta Event,%s is starting
+402,World Boss,%s will spawn
+403,Adventure,The %s adventure will begin
+404,Race,The %s race will begin
+405,Map Specific,%s will spawn
+406,Convergence,The portal to %s will open

@@ -1,0 +1,1 @@
+SELECT KindMessage FROM Kind WHERE PK_KindID = ?;

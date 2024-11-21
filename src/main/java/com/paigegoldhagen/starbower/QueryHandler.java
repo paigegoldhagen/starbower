@@ -616,9 +616,13 @@ public interface QueryHandler extends QueryExecutor {
         String dynamicEventName = dynamicEvent.getString("DynamicEventName");
         int dynamicEventKindID = dynamicEvent.getInt("FK_DynamicEvent_Kind");
 
+        ResultSet kindMessage = QueryExecutor.getSpecificResultSet(databaseConnection, sqlQueries, "KindMessage", dynamicEventKindID);
+        kindMessage.next();
+        String dynamicEventKindMessage = kindMessage.getString("KindMessage");
+
         int waypointID = dynamicEvent.getInt("FK_DynamicEvent_Waypoint");
         String mapName = getMapName(databaseConnection, sqlQueries, waypointID);
 
-        return new DynamicEvent(dynamicEventName, dynamicEventKindID, mapName);
+        return new DynamicEvent(dynamicEventName, dynamicEventKindID, dynamicEventKindMessage, mapName);
     }
 }

@@ -18,8 +18,8 @@ public class MessageHandler {
     public static Message getNotificationMessage(List<DynamicEvent> upcomingDynamicEventList, Integer notifyMinutes) {
         String notifyMinuteString = " in " + notifyMinutes + " minutes!";
 
-        String messageCaption = formatSingleLineString(upcomingDynamicEventList.getFirst()) + notifyMinuteString;
-        String messageText = null;
+        String messageCaption = null;
+        String messageText = formatSingleLineString(upcomingDynamicEventList.getFirst()) + notifyMinuteString;
 
         if (upcomingDynamicEventList.size() > 1) {
             messageCaption = "Multiple events starting" + notifyMinuteString;
@@ -38,14 +38,14 @@ public class MessageHandler {
     private static String formatSingleLineString(DynamicEvent upcomingDynamicEvent) {
         String eventName = upcomingDynamicEvent.getName();
 
-        return switch (upcomingDynamicEvent.getKindID()) {
-            case 402 -> eventName + " will spawn";
-            case 403 -> "The " + eventName + " adventure will begin";
-            case 404 -> "The " + eventName + " race will begin";
-            case 405 -> eventName + " (" + upcomingDynamicEvent.getMapName() + ") will spawn";
-            case 406 -> "The portal to " + eventName + " will open";
-            default -> eventName + " is starting";
-        };
+        int eventKindID = upcomingDynamicEvent.getKindID();
+
+        if (eventKindID >= 405) {
+            eventName = eventName + " (" + upcomingDynamicEvent.getMapName() + ")";
+        }
+
+        String eventMessage = upcomingDynamicEvent.getKindMessage();
+        return String.format(eventMessage, eventName);
     }
 
     /**
@@ -64,6 +64,12 @@ public class MessageHandler {
 
         for (DynamicEvent dynamicEvent : upcomingDynamicEventList) {
             String eventName = dynamicEvent.getName();
+
+            int eventKindID = dynamicEvent.getKindID();
+
+            if (eventKindID >= 405) {
+                eventName = eventName + " (" + dynamicEvent.getMapName() + ")";
+            }
 
             int eventPosition = upcomingDynamicEventList.indexOf(dynamicEvent);
 

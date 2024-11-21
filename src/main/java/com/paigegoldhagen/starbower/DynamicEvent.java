@@ -4,13 +4,14 @@ package com.paigegoldhagen.starbower;
  * Setting and getting DynamicEvent information.
  */
 public class DynamicEvent {
-    public String Name, MapName, WaypointName, WaypointLink;
+    public String Name, KindMessage, MapName, WaypointName, WaypointLink;
     public Integer NotifyStateID, KindID;
     public Boolean NotifyStateEnabled;
 
-    public DynamicEvent(String name, Integer kindID, String mapName) {
+    public DynamicEvent(String name, Integer kindID, String kindMessage, String mapName) {
         this.Name = name;
         this.KindID = kindID;
+        this.KindMessage = kindMessage;
         this.MapName = mapName;
     }
 
@@ -27,6 +28,7 @@ public class DynamicEvent {
     public Integer getNotifyStateID() {return NotifyStateID;}
     public Boolean getNotifyStateEnabled() {return NotifyStateEnabled;}
     public Integer getKindID() {return KindID;}
+    public String getKindMessage() {return KindMessage;}
     public String getMapName() {return MapName;}
     public String getWaypointName() {return WaypointName;}
     public String getWaypointLink() {return WaypointLink;}

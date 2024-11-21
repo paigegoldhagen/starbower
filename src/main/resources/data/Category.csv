@@ -29,9 +29,10 @@ PK_CategoryID,CategoryName,FK_Category_NotifyState,FK_Category_Expansion
 328,The Wizard’s Tower,117,209
 329,Amnytas,,209
 330,Janthir Syntri,,210
-331,Lunar New Year,,211
-332,Super Adventure Festival,,211
-333,Dragon Bash,118,211
-334,Festival of the Four Winds,119,211
-335,Halloween,,211
-336,Wintersday,,211
+331,Mount Balrior,,210
+332,Lunar New Year,,211
+333,Super Adventure Festival,,211
+334,Dragon Bash,118,211
+335,Festival of the Four Winds,119,211
+336,Halloween,,211
+337,Wintersday,,211

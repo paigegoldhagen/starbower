@@ -26,7 +26,8 @@ AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Category.csv');
 
 CREATE TABLE IF NOT EXISTS Kind (
 	PK_KindID INT PRIMARY KEY,
-	KindName NVARCHAR(50) NOT NULL
+	KindName NVARCHAR(50) NOT NULL,
+	KindMessage NVARCHAR(50) NOT NULL
 )
 AS SELECT * FROM CSVREAD('${CurrentWorkingDirectory}/Kind.csv');
 

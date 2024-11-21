@@ -59,4 +59,5 @@ PK_WaypointID,WaypointName,WaypointLink,FK_Waypoint_Map
 658,Droknar’s Light Waypoint,[&BL4NAAA=],542
 659,Tower Courtyard Waypoint,[&BB8OAAA=],543
 660,Bastion of the Natural Waypoint,[&BDQOAAA=],544
-661,Forager’s Hunt Waypoint,[&BLcOAAA=],545
+661,Harvest Den Waypoint,[&BK4OAAA=],545
+662,Forager’s Hunt Waypoint,[&BLcOAAA=],546

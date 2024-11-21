@@ -12,6 +12,7 @@ Expansions.sql
 FestivalCategory.sql
 Festivals.sql
 FestivalStartDates.sql
+KindMessage.sql
 LastExpansion.sql
 MapID.sql
 MapName.sql
